@@ -1,0 +1,26 @@
+.home-nav {
+  display: flex;
+  padding: 1rem;
+}
+
+.home-nav ul {
+  display: flex;
+  flex: 1;
+}
+
+.home-nav li {
+  list-style-type: none;
+}
+
+.right-nav {
+  display: flex;
+}
+
+.right-nav > *:not(:last-child) {
+  margin-right: 1rem;
+}
+
+.spacer {
+  display: block;
+  flex: 1;
+}
