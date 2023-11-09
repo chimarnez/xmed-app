@@ -16,6 +16,12 @@ const HomeNav = () => {
           <li>
             <Link to="signup">Sign Up</Link>
           </li>
+          <li>
+            <Link to="edit-user">Edit User</Link>
+          </li>
+          <li>
+            <Link to="create-user">Create User</Link>
+          </li>
         </div>
       </ul>
     </nav>

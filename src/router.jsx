@@ -12,6 +12,7 @@ import { loader as patientLoader } from "./services/patient";
 import { loader as userLoader } from "./services/user";
 import { loader as recordsLoader } from "./services/records";
 import UserPage from "./pages/user";
+import UserEditPage from "./pages/user-edit";
 
 const router = createBrowserRouter([
   {
@@ -27,6 +28,14 @@ const router = createBrowserRouter([
       {
         path: "signup",
         element: <SignupPage />,
+      },
+      {
+        path: "edit-user",
+        element: <UserEditPage />,
+      },
+      {
+        path: "create-user",
+        element: <UserEditPage />,
       },
     ],
   },
@@ -48,7 +57,11 @@ const router = createBrowserRouter([
         loader: recordsLoader,
         element: <RecordsPage />,
       },
-      { path: "users", element: <UserPage />, loader: userLoader },
+      {
+        path: "users",
+        loader: userLoader,
+        element: <UserPage />,
+      },
     ],
   },
 ]);

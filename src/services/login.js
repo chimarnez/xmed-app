@@ -1,4 +1,4 @@
-import { removeCookie, setCookie } from "./auth";
+import { removeToken, setToken } from "./auth";
 import axiosInstance from "./axios";
 import { redirect } from "react-router-dom";
 
@@ -9,7 +9,7 @@ export async function loginAction({ request }) {
   try {
     const { data } = await axiosInstance.post("/auth", userData);
     const token = data.token;
-    setCookie(token);
+    setToken(token);
     return redirect("/app/users");
   } catch (error) {
     return redirect("/");
@@ -17,5 +17,5 @@ export async function loginAction({ request }) {
 }
 
 export function logout() {
-  removeCookie();
+  removeToken();
 }
