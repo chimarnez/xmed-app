@@ -1,6 +1,6 @@
 import { useParams, Link } from 'react-router-dom';
 import { useEffect, useState } from 'react';
-import { getRecord } from '../services/records'; // Importa la función getRecord
+import { getRecord } from '../services/records';
 
 const RecordDetails = () => {
     const { id } = useParams();
