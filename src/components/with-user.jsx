@@ -3,8 +3,7 @@ import { useUserContext } from "../hooks/user";
 
 const WithUser = ({ children }) => {
   const { user } = useUserContext();
-  if (!user) return <Navigate to="/" replace />;
-  return <>{children}</>;
+  !user ? <Navigate to="/" replace /> : <>{children}</>;
 };
 
 export default WithUser;
