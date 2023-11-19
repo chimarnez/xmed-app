@@ -10,6 +10,19 @@ export async function getRecords() {
   return data;
 }
 
+export async function getRecord(id) {
+  try {
+    const { data } = await axiosInstance.get(
+      `/records/patients/${id}`,
+      getAuthConfig()
+    );
+    return data;
+  } catch (error) {
+    console.error(error);
+    throw error;
+  }
+}
+
 export async function loader() {
   try {
     const records = await getRecords();
