@@ -7,6 +7,7 @@ import App from "./pages/app";
 import DoctorsPage from "./pages/doctors";
 import PatientsPage from "./pages/patients";
 import RecordsPage from "./pages/records";
+import RecordDetails from "./pages/record-details";
 import { loginAction } from "./services/login";
 import { loader as patientLoader } from "./services/patient";
 import { loader as userLoader } from "./services/user";
@@ -56,6 +57,10 @@ const router = createBrowserRouter([
         path: "records",
         loader: recordsLoader,
         element: <RecordsPage />,
+      },
+      {
+        path: "records/:id",
+        element: <RecordDetails />,
       },
       {
         path: "users",
