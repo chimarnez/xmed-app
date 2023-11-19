@@ -7,6 +7,10 @@ export async function getPatient() {
   return data;
 }
 
+export async function updatePatient(data) {
+  await axiosInstance.patch(`/patients`, data, getAuthConfig());
+}
+
 export async function loader() {
   try {
     const patient = await getPatient();
