@@ -1,5 +1,5 @@
 const palette = {
-  primary: "#C4E1C6",
+  primary: "#27C08B",
   appBgDark: "#313149",
   paperDarkTransparent: "#0505284D",
   paperDarkHalfSolid: "#050528B3",
@@ -8,7 +8,7 @@ const palette = {
   appDark: "#080705",
   appWarning: "#FF4F79",
   appWarningAlt: "#F54283",
-  appBackground: "#313149E5",
+  appBackground: "#315159E6",
 };
 
 export default palette;
