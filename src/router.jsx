@@ -8,12 +8,13 @@ import DoctorsPage from "./pages/doctors";
 import PatientsPage from "./pages/patients";
 import RecordsPage from "./pages/records";
 import RecordDetails from "./pages/record-details";
+import UserPage from "./pages/user";
+import UserEditPage from "./pages/user-edit";
+import SettingsPage from "./pages/settings";
 import { loginAction } from "./services/login";
 import { loader as patientLoader } from "./services/patient";
 import { loader as userLoader } from "./services/user";
 import { loader as recordsLoader } from "./services/records";
-import UserPage from "./pages/user";
-import UserEditPage from "./pages/user-edit";
 
 const router = createBrowserRouter([
   {
@@ -66,6 +67,10 @@ const router = createBrowserRouter([
         path: "users",
         loader: userLoader,
         element: <UserPage />,
+      },
+      {
+        path: "settings",
+        element: <SettingsPage />,
       },
     ],
   },
