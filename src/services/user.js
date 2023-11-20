@@ -7,6 +7,10 @@ export async function getUser() {
   return data;
 }
 
+export async function updateUser(data) {
+  await axiosInstance.patch(`/users`, data, getAuthConfig());
+}
+
 export async function loader() {
   try {
     const user = await getUser();

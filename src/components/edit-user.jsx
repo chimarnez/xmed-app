@@ -1,4 +1,3 @@
-import { useLocation } from "react-router-dom";
 import { updateUser, getUser } from '../services/user';
 import React, { useState, useEffect } from 'react';
 import {
@@ -21,8 +20,7 @@ const genderOptions = [
   { value: 'other', label: 'Other' },
 ];
 
-const UserEditPage = () => {
-  const { pathname } = useLocation();
+const EditUser = () => {
   const [loading, setLoading] = useState(false);
   const [userDetails, setUserDetails] = useState({
     firstName: '',
@@ -67,8 +65,7 @@ const UserEditPage = () => {
     }
   };
   return (
-    <div>
-      <h2>{pathname.includes("create") ? "Crear" : "Editar"} Usuario</h2>
+    <div className="App">
       <header className="App-header">
         <Typography component="h2" variant="h2">
           Registro de Usuario
@@ -206,5 +203,4 @@ const UserEditPage = () => {
   );
 };
 
-export default UserEditPage;
-
+export default EditUser;
