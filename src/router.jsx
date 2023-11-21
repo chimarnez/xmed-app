@@ -15,6 +15,7 @@ import { loginAction } from "./services/login";
 import { loader as patientLoader } from "./services/patient";
 import { loader as userLoader } from "./services/user";
 import { loader as recordsLoader } from "./services/records";
+import AppIndexPage from "./pages/app-index";
 
 const router = createBrowserRouter([
   {
@@ -45,6 +46,7 @@ const router = createBrowserRouter([
     path: "/app",
     element: <App />,
     children: [
+      { index: true, element: <AppIndexPage /> },
       {
         path: "doctors",
         element: <DoctorsPage />,
