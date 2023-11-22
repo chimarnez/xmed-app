@@ -71,7 +71,7 @@ const UserEditPage = () => {
       <h2>{pathname.includes("create") ? "Crear" : "Editar"} Usuario</h2>
       <header className="App-header">
         <Typography component="h2" variant="h2">
-          Registro de Usuario
+          Edición de Usuario
         </Typography>
         <Box my={2}>
           <Card>
