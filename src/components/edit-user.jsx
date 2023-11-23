@@ -15,9 +15,9 @@ import {
 import { LoadingButton } from '@mui/lab';
 
 const genderOptions = [
-  { value: 'male', label: 'Male' },
-  { value: 'female', label: 'Female' },
-  { value: 'other', label: 'Other' },
+  { value: 'M', label: 'Male' },
+  { value: 'F', label: 'Female' },
+  { value: 'O', label: 'Other' },
 ];
 
 const EditUser = () => {

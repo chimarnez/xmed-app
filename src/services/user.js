@@ -4,6 +4,16 @@ import axiosInstance from "./axios";
 
 export async function getUser() {
   const { data } = await axiosInstance.get("/users", getAuthConfig());
+
+  if (data.id) {
+    delete data.id;
+  }
+  if (data.createdAt) {
+    delete data.createdAt;
+  }
+  if (data.updatedAt) {
+    delete data.updatedAt;
+  }
   return data;
 }
 
