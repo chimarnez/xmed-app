@@ -9,8 +9,11 @@ import {
 } from "@mui/material";
 import LabeledField from "../components/labeled-field";
 import PageLayout from "../components/page-layout";
+import { useUserRole } from "../hooks/user";
 
 const DoctorsDetailPage = () => {
+  const role = useUserRole();
+  console.log(role);
   const doctor = useLoaderData();
   const { User: user, specialization, medicalLicense } = doctor;
 

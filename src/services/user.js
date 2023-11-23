@@ -7,6 +7,11 @@ export async function getUser() {
   return data;
 }
 
+export async function getUserWithRole() {
+  const { data } = await axiosInstance.get("/users/role", getAuthConfig());
+  return data;
+}
+
 export async function updateUser(data) {
   await axiosInstance.patch(`/users`, data, getAuthConfig());
 }

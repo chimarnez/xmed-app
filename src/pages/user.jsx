@@ -3,6 +3,7 @@ import ListObject from "../components/list-object";
 
 const UserPage = () => {
   const user = useLoaderData();
+  console.log(user);
   return (
     <div>
       <ListObject data={user} />
