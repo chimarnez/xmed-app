@@ -1,7 +1,18 @@
 import { useLoaderData } from "react-router-dom";
-import ListObject from "../components/list-object";
+import { Button, Box, Typography, List, ListItem } from "@mui/material";
 import EditUser from "../components/edit-user";
+import { formatDate } from "../utils/date";
 import { useState } from "react";
+
+const fieldNames = {
+  firstName: "Nombre",
+  lastName: "Apellido",
+  birthDate: "Fecha de nacimiento",
+  gender: "Género",
+  phone: "Teléfono",
+  address: "Dirección",
+  email: "Correo electrónico",
+};
 
 const UserPage = () => {
   const user = useLoaderData();
@@ -12,16 +23,35 @@ const UserPage = () => {
   };
 
   return (
-    <div>
-    {editing ? (
-      <EditUser user={user} />
-    ) : (
-      <>
-        <ListObject data={user} />
-        <button onClick={handleEditClick}>Edit</button>
-      </>
-    )}
-    </div>
+    <Box>
+      {editing ? (
+        <EditUser user={user} />
+      ) : (
+        <>
+          <List>
+            {Object.entries(user).map(([key, value]) => {
+              if (fieldNames[key]) {
+                let displayValue = value;
+                if (key === "birthDate") {
+                  displayValue = formatDate(value); // Formatea la fecha de nacimiento antes de mostrarla
+                }
+                return (
+                  <ListItem key={key}>
+                    <Typography variant="body1">
+                      <strong>{fieldNames[key]}:</strong> {displayValue}
+                    </Typography>
+                  </ListItem>
+                );
+              }
+              return null;
+            })}
+          </List>
+          <Button variant="contained" color="primary" onClick={handleEditClick}>
+            Editar
+          </Button>
+        </>
+      )}
+    </Box>
   );
 };
 
