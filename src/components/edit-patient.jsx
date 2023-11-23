@@ -152,31 +152,6 @@ const EditPatient = ({ patient }) => {
                       </Box>
                     </Grid>
             </Grid>
-            <label>
-                Peso:
-                <input type="number" value={weight} onChange={(event) => handleInputChange(event, setWeight)} />
-            </label>
-            <label>
-                Altura:
-                <input type="number" value={height} onChange={(event) => handleInputChange(event, setHeight)} />
-            </label>
-            <label>
-                Alergias:
-                <input type="text" value={allergies} onChange={(event) => handleInputChange(event, setAllergies)} />
-            </label>
-            <label>
-                Enfermedades crónicas:
-                <input type="text" value={chronicDiseases} onChange={(event) => handleInputChange(event, setChronicDiseases)} />
-            </label>
-            <label>
-                Medicación actual:
-                <input type="text" value={currentMedication} onChange={(event) => handleInputChange(event, setCurrentMedication)} />
-            </label>
-            <label>
-                Antecedentes familiares:
-                <input type="text" value={familyHistory} onChange={(event) => handleInputChange(event, setFamilyHistory)} />
-            </label>
-            <input type="submit" value="Guardar" />
         </form>
         </CardContent>
           </Card>

@@ -5,6 +5,9 @@ import axiosInstance from "./axios";
 export async function getUser() {
   const { data } = await axiosInstance.get("/users", getAuthConfig());
 
+  if (data.password) {
+    delete data.password;
+  }
   if (data.id) {
     delete data.id;
   }
