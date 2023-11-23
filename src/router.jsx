@@ -24,25 +24,23 @@ const router = createBrowserRouter([
     path: "/",
     element: <HomePage />,
     errorElement: <ErrorPage />,
-    children: [
-      {
-        path: "login",
-        action: loginAction,
-        element: <LoginPage />,
-      },
-      {
-        path: "signup",
-        element: <SignupPage />,
-      },
-      {
-        path: "edit-user",
-        element: <UserEditPage />,
-      },
-      {
-        path: "create-user",
-        element: <UserEditPage />,
-      },
-    ],
+  },
+  {
+    path: "/login",
+    element: <LoginPage />,
+    action: loginAction,
+  },
+  {
+    path: "/signup",
+    element: <SignupPage />,
+  },
+  {
+    path: "/edit-user",
+    element: <UserEditPage />,
+  },
+  {
+    path: "/create-user",
+    element: <UserEditPage />,
   },
   {
     path: "/app",
