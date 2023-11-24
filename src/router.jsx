@@ -11,6 +11,7 @@ import RecordDetails from "./pages/record-details";
 import UserPage from "./pages/user";
 import UserEditPage from "./pages/user-edit";
 import SettingsPage from "./pages/settings";
+import BlogPage from "./pages/blog";
 import { loginAction } from "./services/login";
 import { loader as patientLoader } from "./services/patient";
 import { loader as userLoader } from "./services/user";
@@ -79,6 +80,10 @@ const router = createBrowserRouter([
       {
         path: "settings",
         element: <SettingsPage />,
+      },
+      {
+        path: "blog",
+        element: <BlogPage />,
       },
     ],
   },

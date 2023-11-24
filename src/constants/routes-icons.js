@@ -9,7 +9,7 @@ import {
 } from "@mui/icons-material";
 
 export const ROUTES_INFO = {
-  "": { name: "Inicio", path: "", icon: DashboardIcon },
+  blog: { name: "Inicio", path: "blog", icon: DashboardIcon },
   users: { name: "Perfil", path: "users", icon: PeopleAlt },
   patients: { name: "Pacientes", path: "patients", icon: MonitorHeart },
   doctors: { name: "Doctores", path: "doctors", icon: MedicalInformation },
