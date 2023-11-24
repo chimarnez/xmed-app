@@ -19,6 +19,7 @@ import { loader as recordsLoader } from "./services/records";
 import { loader as doctorsLoader, getDoctorProfile } from "./services/doctor";
 import AppIndexPage from "./pages/app-index";
 import DoctorsDetailPage from "./pages/doctors-detail";
+import AppRedirect from "./pages/redirect";
 
 const router = createBrowserRouter([
   {
@@ -84,6 +85,10 @@ const router = createBrowserRouter([
       {
         path: "blog",
         element: <BlogPage />,
+      },
+      {
+        path: "redirect",
+        element: <AppRedirect />,
       },
     ],
   },

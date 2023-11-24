@@ -26,7 +26,7 @@ const PageLayout = ({ children }) => {
           overflow: "hidden",
         }}
       >
-        <Box sx={{ maxHeight: 600, overflowX: "auto" }}>{children}</Box>
+        <Box sx={{ overflowX: "auto" }}>{children}</Box>
       </Container>
     </>
   );
