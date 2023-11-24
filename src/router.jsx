@@ -15,7 +15,9 @@ import { loginAction } from "./services/login";
 import { loader as patientLoader } from "./services/patient";
 import { loader as userLoader } from "./services/user";
 import { loader as recordsLoader } from "./services/records";
+import { loader as doctorsLoader, getDoctorProfile } from "./services/doctor";
 import AppIndexPage from "./pages/app-index";
+import DoctorsDetailPage from "./pages/doctors-detail";
 
 const router = createBrowserRouter([
   {
@@ -47,7 +49,13 @@ const router = createBrowserRouter([
       { index: true, element: <AppIndexPage /> },
       {
         path: "doctors",
+        loader: doctorsLoader,
         element: <DoctorsPage />,
+      },
+      {
+        path: "doctors/:id",
+        loader: getDoctorProfile,
+        element: <DoctorsDetailPage />,
       },
       {
         path: "patients",

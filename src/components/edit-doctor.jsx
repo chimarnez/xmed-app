@@ -1,5 +1,5 @@
-import { updateDoctor, getDoctor } from '../services/doctor';
-import React, { useState, useEffect } from 'react';
+import { updateDoctor, getDoctor } from "../services/doctor";
+import { useState, useEffect } from "react";
 import {
   Box,
   TextField,
@@ -7,14 +7,14 @@ import {
   Card,
   CardContent,
   Typography,
-} from '@mui/material';
-import { LoadingButton } from '@mui/lab';
+} from "@mui/material";
+import { LoadingButton } from "@mui/lab";
 
 const EditDoctor = () => {
   const [loading, setLoading] = useState(false);
   const [doctorDetails, setDoctorDetails] = useState({
-    specialization: '',
-    medicalLicense: '',
+    specialization: "",
+    medicalLicense: "",
   });
 
   useEffect(() => {
@@ -67,7 +67,7 @@ const EditDoctor = () => {
                       type="text"
                       name="specialization"
                       value={doctorDetails.specialization}
-                      onChange={(e) => handleInputChange(e, 'specialization')}
+                      onChange={(e) => handleInputChange(e, "specialization")}
                       margin="dense"
                       fullWidth
                       variant="outlined"
@@ -80,7 +80,7 @@ const EditDoctor = () => {
                       type="text"
                       name="medicalLicense"
                       value={doctorDetails.medicalLicense}
-                      onChange={(e) => handleInputChange(e, 'medicalLicense')}
+                      onChange={(e) => handleInputChange(e, "medicalLicense")}
                       margin="dense"
                       fullWidth
                       variant="outlined"
@@ -88,7 +88,7 @@ const EditDoctor = () => {
                     />
                   </Grid>
                   <Grid item xs={12} sm={12} md={12} lg={12} xl={12}>
-                    <Box sx={{ '& > button': { m: 1 } }}>
+                    <Box sx={{ "& > button": { m: 1 } }}>
                       <LoadingButton
                         size="small"
                         onClick={handleSubmit}

@@ -10,10 +10,10 @@ const HomePage = () => {
       <Container sx={{ mt: 4, display: "flex", gap: 4, alignItems: "center" }}>
         <Stack spacing={5}>
           <Stack spacing={3}>
-            <Typography variant="h3">
+            <Typography color="primary" variant="h3">
               Administra eficientemente tus expedientes médicos
             </Typography>
-            <Typography variant="subtitle1" color="textSecondary">
+            <Typography variant="body1" color="textSecondary">
               Nuestra plataforma brinda una experiencia fluida para usuarios y
               médicos, permitiéndoles acceder y gestionar sus registros médicos
               de manera eficiente.
