@@ -34,31 +34,79 @@ const RecordDetails = () => {
   return (
     <Box>
       <TableContainer component={Paper}>
-        <Table>
+        <Table sx={{ border: "none" }}>
           <TableBody>
             <TableRow>
-              <TableCell component="th" scope="row">
-                Diagnostico
+              <TableCell
+                component="th"
+                scope="row"
+                sx={{ border: "none", paddingBottom: 2 }}
+              >
+                Nombre del paciente:
               </TableCell>
-              <TableCell>{record.diagnosis}</TableCell>
+              <TableCell sx={{ border: "none", paddingBottom: 2 }}>
+                {record.patientFirstName} {record.patientLastName}
+              </TableCell>
             </TableRow>
             <TableRow>
-              <TableCell component="th" scope="row">
-                Sintomas
+              <TableCell
+                component="th"
+                scope="row"
+                sx={{ border: "none", paddingBottom: 2 }}
+              >
+                Atendido por:
               </TableCell>
-              <TableCell>{record.symptoms}</TableCell>
+              <TableCell sx={{ border: "none", paddingBottom: 2 }}>
+                {record.doctorFirstName} {record.doctorLastName}
+              </TableCell>
             </TableRow>
             <TableRow>
-              <TableCell component="th" scope="row">
-                Tratamiento
+              <TableCell
+                component="th"
+                scope="row"
+                sx={{ border: "none", paddingBottom: 2 }}
+              >
+                Diagnostico:
               </TableCell>
-              <TableCell>{record.treatment}</TableCell>
+              <TableCell sx={{ border: "none", paddingBottom: 2 }}>
+                {record.diagnosis}
+              </TableCell>
             </TableRow>
             <TableRow>
-              <TableCell component="th" scope="row">
-                Fecha
+              <TableCell
+                component="th"
+                scope="row"
+                sx={{ border: "none", paddingBottom: 2 }}
+              >
+                Sintomas:
               </TableCell>
-              <TableCell>{formatDate(record.issuedOn)}</TableCell>
+              <TableCell sx={{ border: "none", paddingBottom: 2 }}>
+                {record.symptoms}
+              </TableCell>
+            </TableRow>
+            <TableRow>
+              <TableCell
+                component="th"
+                scope="row"
+                sx={{ border: "none", paddingBottom: 2 }}
+              >
+                Tratamiento:
+              </TableCell>
+              <TableCell sx={{ border: "none", paddingBottom: 2 }}>
+                {record.treatment}
+              </TableCell>
+            </TableRow>
+            <TableRow>
+              <TableCell
+                component="th"
+                scope="row"
+                sx={{ border: "none", paddingBottom: 2 }}
+              >
+                Fecha:
+              </TableCell>
+              <TableCell sx={{ border: "none", paddingBottom: 2 }}>
+                {formatDate(record.issuedOn)}
+              </TableCell>
             </TableRow>
           </TableBody>
         </Table>
