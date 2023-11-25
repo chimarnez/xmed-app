@@ -1,0 +1,38 @@
+name: Continuous Integration/Continuous Deployment
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  continuous-integration:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Clonar la última versión del código
+        uses: actions/checkout@v4
+
+      - name: Ejecutar las pruebas en un ambiente de Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: 16
+      - run: npm install
+
+    
+  continuous-delivery:
+    needs: continuous-integration
+    runs-on: ubuntu-latest
+    steps:
+      - name: Deploy on server
+        uses: appleboy/ssh-action@v1.0.0
+        with:
+          key: ${{ secrets.SSH_PRIVATE_KEY }}
+          host: ${{ secrets.SSH_HOST }}
+          username: ${{ secrets.SSH_USERNAME }}
+          script: |
+            export NVM_DIR=~/.nvm
+            source ~/.nvm/nvm.sh
+            cd /var/www/xmed-app/
+            git pull origin main
+            npm install
+            npm run build
