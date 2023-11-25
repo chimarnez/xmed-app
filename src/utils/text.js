@@ -25,3 +25,14 @@ export function formatKey(key) {
   result[0] = result[0].replace(key[0], key[0].toUpperCase());
   return result.join(" ");
 }
+
+/**
+ *
+ * @param {string} text
+ * @param {number} maxLength
+ * @returns
+ */
+export function toShortText(text, maxLength = 12) {
+  if (text.length <= 12) return text;
+  return text.substring(0, maxLength) + "...";
+}

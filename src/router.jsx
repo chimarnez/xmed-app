@@ -11,36 +11,38 @@ import RecordDetails from "./pages/record-details";
 import UserPage from "./pages/user";
 import UserEditPage from "./pages/user-edit";
 import SettingsPage from "./pages/settings";
+import BlogPage from "./pages/blog";
 import { loginAction } from "./services/login";
 import { loader as patientLoader } from "./services/patient";
 import { loader as userLoader } from "./services/user";
 import { loader as recordsLoader } from "./services/records";
+import { loader as doctorsLoader, getDoctorProfile } from "./services/doctor";
 import AppIndexPage from "./pages/app-index";
+import DoctorsDetailPage from "./pages/doctors-detail";
+import AppRedirect from "./pages/redirect";
 
 const router = createBrowserRouter([
   {
     path: "/",
     element: <HomePage />,
     errorElement: <ErrorPage />,
-    children: [
-      {
-        path: "login",
-        action: loginAction,
-        element: <LoginPage />,
-      },
-      {
-        path: "signup",
-        element: <SignupPage />,
-      },
-      {
-        path: "edit-user",
-        element: <UserEditPage />,
-      },
-      {
-        path: "create-user",
-        element: <UserEditPage />,
-      },
-    ],
+  },
+  {
+    path: "/login",
+    element: <LoginPage />,
+    action: loginAction,
+  },
+  {
+    path: "/signup",
+    element: <SignupPage />,
+  },
+  {
+    path: "/edit-user",
+    element: <UserEditPage />,
+  },
+  {
+    path: "/create-user",
+    element: <UserEditPage />,
   },
   {
     path: "/app",
@@ -49,7 +51,13 @@ const router = createBrowserRouter([
       { index: true, element: <AppIndexPage /> },
       {
         path: "doctors",
+        loader: doctorsLoader,
         element: <DoctorsPage />,
+      },
+      {
+        path: "doctors/:id",
+        loader: getDoctorProfile,
+        element: <DoctorsDetailPage />,
       },
       {
         path: "patients",
@@ -73,6 +81,14 @@ const router = createBrowserRouter([
       {
         path: "settings",
         element: <SettingsPage />,
+      },
+      {
+        path: "blog",
+        element: <BlogPage />,
+      },
+      {
+        path: "redirect",
+        element: <AppRedirect />,
       },
     ],
   },

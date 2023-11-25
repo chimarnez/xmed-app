@@ -1,7 +1,12 @@
-import { Typography } from "@mui/material";
+import CustomBlog from "../components/blog/custom-blog";
+import PageLayout from "../components/page-layout";
 
 const AppIndexPage = () => {
-  return <Typography variant="h2">En espera de...</Typography>;
+  return (
+    <PageLayout>
+      <CustomBlog />
+    </PageLayout>
+  );
 };
 
 export default AppIndexPage;

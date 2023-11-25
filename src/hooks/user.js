@@ -1,11 +1,11 @@
 import { useContext } from "react";
-import { UserContext } from "../services/user";
+import { UserContext } from "../services/user-provider";
 
 /**
  *
  * @returns {{user: Object, setUser: () => {}}}
  */
-export function useUserContext() {
+export function useUserRole() {
   const context = useContext(UserContext);
-  return context;
+  return context.role;
 }

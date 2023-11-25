@@ -31,15 +31,6 @@ const theme = createTheme({
         },
       },
     },
-    // MuiTable: {
-    //   styleOverrides: {
-    //     root: {
-    //       webkitScro: {
-    //         width:
-    //       }
-    //     },
-    //   },
-    // },
   },
   palette: {
     mode: "dark",
