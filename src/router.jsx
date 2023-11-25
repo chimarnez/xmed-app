@@ -20,6 +20,8 @@ import { loader as doctorsLoader, getDoctorProfile } from "./services/doctor";
 import AppIndexPage from "./pages/app-index";
 import DoctorsDetailPage from "./pages/doctors-detail";
 import AppRedirect from "./pages/redirect";
+import DoctorsRecordsPage from "./pages/doctors-records";
+import DoctorsPatientsPage from "./pages/doctors-patients";
 
 const router = createBrowserRouter([
   {
@@ -53,6 +55,14 @@ const router = createBrowserRouter([
         path: "doctors",
         loader: doctorsLoader,
         element: <DoctorsPage />,
+      },
+      {
+        path: "doctors-records", // TODO : should be a child route of doctors
+        element: <DoctorsRecordsPage />,
+      },
+      {
+        path: "doctors-patients", // TODO : should be a child route of doctors
+        element: <DoctorsPatientsPage />,
       },
       {
         path: "doctors/:id",

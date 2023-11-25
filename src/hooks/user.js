@@ -3,7 +3,7 @@ import { UserContext } from "../services/user-provider";
 
 /**
  *
- * @returns {{user: Object, setUser: () => {}}}
+ * @returns {string}
  */
 export function useUserRole() {
   const context = useContext(UserContext);
