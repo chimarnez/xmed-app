@@ -22,6 +22,18 @@ export async function getRecord(id) {
     throw error;
   }
 }
+export async function getDoctorRecords() {
+  try {
+    const { data } = await axiosInstance.get(
+      `/records/doctors`,
+      getAuthConfig()
+    );
+    return data;
+  } catch (error) {
+    console.error(error);
+    throw error;
+  }
+}
 
 export async function loader() {
   try {

@@ -3,40 +3,62 @@ import {
   PeopleAlt,
   InsertDriveFile,
   Settings,
-  //   Vaccines,
   MedicalInformation,
-  MonitorHeart,
+  PersonSearch,
 } from "@mui/icons-material";
+import HealthIcon from "../components/icons/heart-icon";
+
+const blog = { name: "Inicio", path: "blog", icon: DashboardIcon };
+const users = { name: "Perfil", path: "users", icon: PeopleAlt };
+const medicalInformation = {
+  name: "Mi salud",
+  path: "medical-information",
+  icon: HealthIcon,
+};
+const medicalHistory = {
+  name: "Mi historial",
+  path: "medical-history",
+  icon: MedicalInformation,
+};
+const doctors = {
+  name: "Doctores",
+  path: "doctors",
+  icon: PersonSearch,
+};
+const settings = { name: "Ajustes", path: "settings", icon: Settings };
 
 export const PATIENT_ROUTES_INFO = {
-  blog: { name: "Inicio", path: "blog", icon: DashboardIcon },
-  users: { name: "Perfil", path: "users", icon: PeopleAlt },
-  patients: { name: "Pacientes", path: "patients", icon: MonitorHeart },
-  doctors: { name: "Doctores", path: "doctors", icon: MedicalInformation },
-  records: { name: "Expedientes", path: "records", icon: InsertDriveFile },
-  settings: { name: "Ajustes", path: "settings", icon: Settings },
+  blog,
+  users,
+  medicalInformation,
+  medicalHistory,
+  doctors,
+  settings,
 };
 
 export const DOCTOR_ROUTES_INFO = {
-  blog: { name: "Inicio", path: "blog", icon: DashboardIcon },
-  users: { name: "Perfil", path: "users", icon: PeopleAlt },
+  blog,
+  users,
   patients: {
-    name: "Mis pacientes",
+    name: "Pacientes",
     path: "doctors-patients",
-    icon: MonitorHeart,
+    icon: PeopleAlt,
   },
   records: {
-    name: "Mis expedientes",
+    name: "Expedientes",
     path: "doctors-records",
     icon: InsertDriveFile,
   },
-  settings: { name: "Ajustes", path: "settings", icon: Settings },
+  medicalInformation,
+  medicalHistory,
+  doctors,
+  settings,
 };
 
 export const PATIENT_DRAWER_ITEMS = Object.keys(PATIENT_ROUTES_INFO).map(
-  (routeName) => PATIENT_ROUTES_INFO[routeName]
+  (routeKey) => PATIENT_ROUTES_INFO[routeKey]
 );
 
 export const DOCTOR_DRAWER_ITEMS = Object.keys(DOCTOR_ROUTES_INFO).map(
-  (routeName) => DOCTOR_ROUTES_INFO[routeName]
+  (routeKey) => DOCTOR_ROUTES_INFO[routeKey]
 );

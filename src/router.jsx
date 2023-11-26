@@ -15,7 +15,7 @@ import BlogPage from "./pages/blog";
 import { loginAction } from "./services/login";
 import { loader as patientLoader } from "./services/patient";
 import { loader as userLoader } from "./services/user";
-import { loader as recordsLoader } from "./services/records";
+import { loader as recordsLoader, getDoctorRecords } from "./services/records";
 import { loader as doctorsLoader, getDoctorProfile } from "./services/doctor";
 import AppIndexPage from "./pages/app-index";
 import DoctorsDetailPage from "./pages/doctors-detail";
@@ -58,6 +58,7 @@ const router = createBrowserRouter([
       },
       {
         path: "doctors-records", // TODO : should be a child route of doctors
+        loader: getDoctorRecords,
         element: <DoctorsRecordsPage />,
       },
       {
