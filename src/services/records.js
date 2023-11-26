@@ -50,13 +50,14 @@ export async function updateRecord(data) {
 }
 
 export async function createRecord(recordData) {
+  const id = "";
   try {
     const response = await axiosInstance.post(
       `/records/patients/${id}`, //no sé si la ruta de creación está correcta
       recordData,
       getAuthConfig()
     );
-    return response.data; 
+    return response.data;
   } catch (error) {
     console.error("Error al crear el expediente:", error);
     throw error;

@@ -7,3 +7,4 @@ export const SETTINGS = "settings";
 export const RECORDS = "records";
 export const PATIENTS = "patients";
 export const DOCTORS = "doctors";
+export const REDIRECT = "redirect";

@@ -1,4 +1,4 @@
-import { useParams, Link } from "react-router-dom";
+import { useParams } from "react-router-dom";
 import {
   Typography,
   Box,
@@ -113,7 +113,7 @@ const RecordDetails = () => {
       </TableContainer>
       <Button
         component={RouterLink}
-        to="/app/records"
+        to="/app/medical-history"
         variant="contained"
         color="primary"
       >

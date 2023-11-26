@@ -22,6 +22,7 @@ import DoctorsDetailPage from "./pages/doctors-detail";
 import AppRedirect from "./pages/redirect";
 import DoctorsRecordsPage from "./pages/doctors-records";
 import DoctorsPatientsPage from "./pages/doctors-patients";
+import * as routes from "./constants/route-names";
 
 const router = createBrowserRouter([
   {
@@ -52,53 +53,53 @@ const router = createBrowserRouter([
     children: [
       { index: true, element: <AppIndexPage /> },
       {
-        path: "doctors",
+        path: routes.DOCTORS,
         loader: doctorsLoader,
         element: <DoctorsPage />,
       },
       {
-        path: "doctors-records", // TODO : should be a child route of doctors
+        path: routes.RECORDS,
         loader: getDoctorRecords,
         element: <DoctorsRecordsPage />,
       },
       {
-        path: "doctors-patients", // TODO : should be a child route of doctors
+        path: routes.PATIENTS,
         element: <DoctorsPatientsPage />,
       },
       {
-        path: "doctors/:id",
+        path: `${routes.DOCTORS}/:id`,
         loader: getDoctorProfile,
         element: <DoctorsDetailPage />,
       },
       {
-        path: "patients",
+        path: routes.MEDICAL_INFORMATION,
         loader: patientLoader,
         element: <PatientsPage />,
       },
       {
-        path: "records",
+        path: routes.MEDICAL_HISTORY,
         loader: recordsLoader,
         element: <RecordsPage />,
       },
       {
-        path: "records/:id",
+        path: `${routes.MEDICAL_HISTORY}/:id`,
         element: <RecordDetails />,
       },
       {
-        path: "users",
+        path: routes.USERS,
         loader: userLoader,
         element: <UserPage />,
       },
       {
-        path: "settings",
+        path: routes.SETTINGS,
         element: <SettingsPage />,
       },
       {
-        path: "blog",
+        path: routes.BLOG,
         element: <BlogPage />,
       },
       {
-        path: "redirect",
+        path: routes.REDIRECT,
         element: <AppRedirect />,
       },
     ],

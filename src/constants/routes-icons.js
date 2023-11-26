@@ -1,4 +1,5 @@
 import {
+  EmojiPeople,
   Dashboard as DashboardIcon,
   PeopleAlt,
   InsertDriveFile,
@@ -10,7 +11,7 @@ import * as routes from "./route-names";
 import HealthIcon from "../components/icons/heart-icon";
 
 const blog = { name: "Inicio", path: routes.BLOG, icon: DashboardIcon };
-const users = { name: "Perfil", path: routes.USERS, icon: PeopleAlt };
+const users = { name: "Perfil", path: routes.USERS, icon: EmojiPeople };
 const medicalInformation = {
   name: "Mi salud",
   path: routes.MEDICAL_INFORMATION,
