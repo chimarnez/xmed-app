@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { updatePatient } from "../services/patient";
+import { updatePatient, createPatient } from "../services/patient";
 
 import {
   Box,
@@ -11,8 +11,9 @@ import {
 } from "@mui/material";
 import { LoadingButton } from "@mui/lab";
 import { useNavigate } from "react-router-dom";
+import { MEDICAL_INFORMATION } from "../constants/route-names";
 
-const EditPatient = ({ patient }) => {
+const EditPatient = ({ patient, edit = true }) => {
   const navigate = useNavigate();
 
   const handleInputChange = (event, setState) => {
@@ -43,8 +44,14 @@ const EditPatient = ({ patient }) => {
         currentMedication,
         familyHistory,
       };
-      await updatePatient(updatedPatient);
-      navigate("/app/redirect", { state: { toPath: "/app/patients" } });
+      if (edit) {
+        await updatePatient(updatedPatient);
+      } else {
+        await createPatient(updatedPatient);
+      }
+      navigate("/app/redirect", {
+        state: { toPath: `/app/${MEDICAL_INFORMATION}` },
+      });
       // window.location.reload();
     } catch (error) {
       console.error(error);
@@ -57,7 +64,7 @@ const EditPatient = ({ patient }) => {
     <div>
       <header className="App-header">
         <Typography component="h2" variant="h2">
-          Editar datos del paciente
+          {edit ? "Editar" : "Registrar"} datos del paciente
         </Typography>
         <Box my={2}>
           <Card>
@@ -153,7 +160,7 @@ const EditPatient = ({ patient }) => {
                         variant="outlined"
                         disabled={!loading ? false : true}
                       >
-                        Enviar
+                        {edit ? "Enviar" : "Crear"}
                       </LoadingButton>
                     </Box>
                   </Grid>

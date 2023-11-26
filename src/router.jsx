@@ -23,6 +23,7 @@ import AppRedirect from "./pages/redirect";
 import DoctorsRecordsPage from "./pages/doctors-records";
 import DoctorsPatientsPage from "./pages/doctors-patients";
 import * as routes from "./constants/route-names";
+import CreatePatientPage from "./pages/create-patient";
 
 const router = createBrowserRouter([
   {
@@ -75,6 +76,10 @@ const router = createBrowserRouter([
         path: routes.MEDICAL_INFORMATION,
         loader: patientLoader,
         element: <PatientsPage />,
+      },
+      {
+        path: `${routes.MEDICAL_INFORMATION}/new`,
+        element: <CreatePatientPage />,
       },
       {
         path: routes.MEDICAL_HISTORY,

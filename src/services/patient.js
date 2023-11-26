@@ -1,4 +1,4 @@
-import { redirect } from "react-router-dom";
+// import { redirect } from "react-router-dom";
 import { getAuthConfig } from "./auth";
 import axiosInstance from "./axios";
 
@@ -11,12 +11,17 @@ export async function updatePatient(data) {
   await axiosInstance.patch(`/patients`, data, getAuthConfig());
 }
 
+export async function createPatient(data) {
+  await axiosInstance.post(`/patients`, data, getAuthConfig());
+}
+
 export async function loader() {
   try {
     const patient = await getPatient();
     return patient;
   } catch (error) {
     console.log(error);
-    return redirect("/app/users");
+    return null;
+    // return redirect("/app/users");
   }
 }
