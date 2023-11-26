@@ -9,7 +9,7 @@ import PatientsPage from "./pages/patients";
 import RecordsPage from "./pages/records";
 import RecordDetails from "./pages/record-details";
 import UserPage from "./pages/user";
-import UserEditPage from "./pages/user-edit";
+// import UserEditPage from "./pages/user-edit";
 import SettingsPage from "./pages/settings";
 import BlogPage from "./pages/blog";
 import { loginAction } from "./services/login";
@@ -25,29 +25,28 @@ import DoctorsPatientsPage from "./pages/doctors-patients";
 import * as routes from "./constants/route-names";
 import CreatePatientPage from "./pages/create-patient";
 import EditRecord from "./components/edit-record";
+import RootPage from "./pages/root";
 
 const router = createBrowserRouter([
   {
     path: "/",
-    element: <HomePage />,
+    element: <RootPage />,
     errorElement: <ErrorPage />,
-  },
-  {
-    path: "/login",
-    element: <LoginPage />,
-    action: loginAction,
-  },
-  {
-    path: "/signup",
-    element: <SignupPage />,
-  },
-  {
-    path: "/edit-user",
-    element: <UserEditPage />,
-  },
-  {
-    path: "/create-user",
-    element: <UserEditPage />,
+    children: [
+      {
+        index: true,
+        element: <HomePage />,
+      },
+      {
+        path: "login",
+        element: <LoginPage />,
+        action: loginAction,
+      },
+      {
+        path: "signup",
+        element: <SignupPage />,
+      },
+    ],
   },
   {
     path: "/app",
