@@ -49,7 +49,6 @@ function formatter(row, columns) {
 
 const DoctorsPage = () => {
   const data = useLoaderData();
-  console.log(data[0]);
   return (
     <DataTable
       tableTitle="Doctores"

@@ -1,6 +1,7 @@
 import { redirect } from "react-router-dom";
 import { getAuthConfig } from "./auth";
 import axiosInstance from "./axios";
+import { parseFromDateInput } from "../utils/date";
 
 export async function getUser() {
   const { data } = await axiosInstance.get("/users", getAuthConfig());
@@ -26,13 +27,17 @@ export async function getUserWithRole() {
 }
 
 export async function updateUser(data) {
-  await axiosInstance.patch(`/users`, data, getAuthConfig());
+  const updatedUser = { ...data };
+  if (updatedUser.birthDate) {
+    updatedUser.birthDate = parseFromDateInput(updatedUser.birthDate);
+  }
+  if (!updatedUser.password) updatedUser.password = "Userpassword12";
+  await axiosInstance.patch(`/users`, updatedUser, getAuthConfig());
 }
 
 export async function loader() {
   try {
     const user = await getUser();
-    console.log(user);
     return user;
   } catch (error) {
     return redirect("/login");

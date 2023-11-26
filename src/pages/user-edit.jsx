@@ -1,6 +1,6 @@
 import { useLocation } from "react-router-dom";
-import { updateUser, getUser } from '../services/user';
-import React, { useState, useEffect } from 'react';
+import { updateUser, getUser } from "../services/user";
+import { useState, useEffect } from "react";
 import {
   Box,
   TextField,
@@ -12,34 +12,47 @@ import {
   Select,
   MenuItem,
   InputLabel,
-} from '@mui/material';
-import { LoadingButton } from '@mui/lab';
+} from "@mui/material";
+import { LoadingButton } from "@mui/lab";
+import { formatInputDate } from "../utils/date";
 
 const genderOptions = [
-  { value: 'male', label: 'Male' },
-  { value: 'female', label: 'Female' },
-  { value: 'other', label: 'Other' },
+  { value: "M", label: "Male" },
+  { value: "F", label: "Female" },
+  { value: "O", label: "Other" },
 ];
 
 const UserEditPage = () => {
   const { pathname } = useLocation();
   const [loading, setLoading] = useState(false);
   const [userDetails, setUserDetails] = useState({
-    firstName: '',
-    lastName: '',
-    birthDate: '',
-    gender: '',
-    phone: '',
-    address: '',
-    email: '',
-    password: '',
+    firstName: "",
+    lastName: "",
+    birthDate: "",
+    gender: "",
+    phone: "",
+    address: "",
+    email: "",
+    password: "",
   });
+
+  const formatUser = (user) => {
+    const updatedUser = { ...userDetails };
+    Object.keys(updatedUser).forEach((key) => {
+      if (user[key]) updatedUser[key] = user[key];
+    });
+    if (user.birthDate) {
+      updatedUser.birthDate = formatInputDate(user.birthDate);
+    }
+    console.log(updatedUser);
+    setUserDetails(updatedUser);
+  };
 
   useEffect(() => {
     async function fetchUser() {
       try {
         const user = await getUser();
-        setUserDetails(user);
+        formatUser(user);
       } catch (error) {
         console.error(error);
       }
@@ -84,7 +97,7 @@ const UserEditPage = () => {
                       type="text"
                       name="firstName"
                       value={userDetails.firstName}
-                      onChange={(e) => handleInputChange(e, 'firstName')}
+                      onChange={(e) => handleInputChange(e, "firstName")}
                       margin="dense"
                       fullWidth
                       variant="outlined"
@@ -97,7 +110,7 @@ const UserEditPage = () => {
                       type="text"
                       name="lastName"
                       value={userDetails.lastName}
-                      onChange={(e) => handleInputChange(e, 'lastName')}
+                      onChange={(e) => handleInputChange(e, "lastName")}
                       margin="dense"
                       fullWidth
                       variant="outlined"
@@ -110,7 +123,7 @@ const UserEditPage = () => {
                       type="date"
                       name="birthDate"
                       value={userDetails.birthDate}
-                      onChange={(e) => handleInputChange(e, 'birthDate')}
+                      onChange={(e) => handleInputChange(e, "birthDate")}
                       margin="dense"
                       fullWidth
                       variant="outlined"
@@ -122,7 +135,7 @@ const UserEditPage = () => {
                       <Select
                         name="gender"
                         value={userDetails.gender}
-                        onChange={(e) => handleInputChange(e, 'gender')}
+                        onChange={(e) => handleInputChange(e, "gender")}
                       >
                         {genderOptions.map((option) => (
                           <MenuItem key={option.value} value={option.value}>
@@ -132,15 +145,15 @@ const UserEditPage = () => {
                       </Select>
                     </FormControl>
                   </Grid>
-      
-                    {/* Agregar otros campos (Phone, Address, Email, Password) utilizando TextField */}
+
+                  {/* Agregar otros campos (Phone, Address, Email, Password) utilizando TextField */}
                   <Grid item xs={12} sm={12} md={6} lg={6} xl={6}>
                     <TextField
                       label="Phone"
                       type="number"
                       name="phone"
                       value={userDetails.phone}
-                      onChange={(e) => handleInputChange(e, 'phone')}
+                      onChange={(e) => handleInputChange(e, "phone")}
                       margin="dense"
                       fullWidth
                       variant="outlined"
@@ -152,7 +165,7 @@ const UserEditPage = () => {
                       type="text"
                       name="address"
                       value={userDetails.address}
-                      onChange={(e) => handleInputChange(e, 'address')}
+                      onChange={(e) => handleInputChange(e, "address")}
                       margin="dense"
                       fullWidth
                       variant="outlined"
@@ -164,7 +177,7 @@ const UserEditPage = () => {
                       type="text"
                       name="email"
                       value={userDetails.email}
-                      onChange={(e) => handleInputChange(e, 'email')}
+                      onChange={(e) => handleInputChange(e, "email")}
                       margin="dense"
                       fullWidth
                       variant="outlined"
@@ -176,27 +189,26 @@ const UserEditPage = () => {
                       type="password"
                       name="password"
                       value={userDetails.password}
-                      onChange={(e) => handleInputChange(e, 'password')}
+                      onChange={(e) => handleInputChange(e, "password")}
                       margin="dense"
                       fullWidth
                       variant="outlined"
                     />
                   </Grid>
-                    <Grid item xs={12} sm={12} md={12} lg={12} xl={12}>
-                      <Box sx={{ '& > button': { m: 1 } }}>
-                        <LoadingButton
-                          size="small"
-                          onClick={handleSubmit} // Llama a la función handleSubmit sin pasar argumentos
-                          loading={loading}
-                          variant="outlined"
-                          disabled={!loading ? false : true}
-                          >
-                            Enviar
-                        </LoadingButton>
-                      </Box>
-                    </Grid>
-                  
+                  <Grid item xs={12} sm={12} md={12} lg={12} xl={12}>
+                    <Box sx={{ "& > button": { m: 1 } }}>
+                      <LoadingButton
+                        size="small"
+                        onClick={handleSubmit} // Llama a la función handleSubmit sin pasar argumentos
+                        loading={loading}
+                        variant="outlined"
+                        disabled={!loading ? false : true}
+                      >
+                        Enviar
+                      </LoadingButton>
+                    </Box>
                   </Grid>
+                </Grid>
               </form>
             </CardContent>
           </Card>
@@ -207,4 +219,3 @@ const UserEditPage = () => {
 };
 
 export default UserEditPage;
-

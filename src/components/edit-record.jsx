@@ -27,7 +27,6 @@ const EditRecord = ({ create = false }) => {
   const formatRecordDetails = (record) => {
     const updatedRecord = { ...recordDetails };
     Object.keys(updatedRecord).forEach((key) => {
-      console.log(record[key]);
       if (record[key]) updatedRecord[key] = record[key];
     });
     updatedRecord.issuedOn = formatInputDate(record.issuedOn);
@@ -42,7 +41,6 @@ const EditRecord = ({ create = false }) => {
       try {
         if (!state) throw new Error("ID not provided");
         const record = await getRecord(state.id);
-        console.log(record);
         formatRecordDetails(record);
       } catch (error) {
         console.error(error);

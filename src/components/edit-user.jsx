@@ -1,5 +1,6 @@
 import { updateUser, getUser } from "../services/user";
-import React, { useState, useEffect } from "react";
+import { useNavigate } from "react-router-dom";
+import { useState, useEffect } from "react";
 import {
   Box,
   TextField,
@@ -13,6 +14,7 @@ import {
   InputLabel,
 } from "@mui/material";
 import { LoadingButton } from "@mui/lab";
+import { formatInputDate } from "../utils/date";
 
 const genderOptions = [
   { value: "M", label: "Masculino" },
@@ -22,6 +24,7 @@ const genderOptions = [
 
 const EditUser = () => {
   const [loading, setLoading] = useState(false);
+  const navigate = useNavigate();
   const [userDetails, setUserDetails] = useState({
     firstName: "",
     lastName: "",
@@ -33,11 +36,22 @@ const EditUser = () => {
     password: "",
   });
 
+  const formatUser = (user) => {
+    const updatedUser = { ...userDetails };
+    Object.keys(updatedUser).forEach((key) => {
+      if (user[key]) updatedUser[key] = user[key];
+    });
+    if (user.birthDate) {
+      updatedUser.birthDate = formatInputDate(user.birthDate);
+    }
+    setUserDetails(updatedUser);
+  };
+
   useEffect(() => {
     async function fetchUser() {
       try {
         const user = await getUser();
-        setUserDetails(user);
+        formatUser(user);
       } catch (error) {
         console.error(error);
       }
@@ -57,7 +71,7 @@ const EditUser = () => {
     setLoading(true); // Establecer loading a true cuando se envía el formulario
     try {
       await updateUser(userDetails);
-      window.location.reload();
+      navigate("/app/redirect", { state: { toPath: "/app/users" } });
     } catch (error) {
       console.error(error);
     } finally {
