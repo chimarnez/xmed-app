@@ -6,26 +6,27 @@ import {
   MedicalInformation,
   PersonSearch,
 } from "@mui/icons-material";
+import * as routes from "./route-names";
 import HealthIcon from "../components/icons/heart-icon";
 
-const blog = { name: "Inicio", path: "blog", icon: DashboardIcon };
-const users = { name: "Perfil", path: "users", icon: PeopleAlt };
+const blog = { name: "Inicio", path: routes.BLOG, icon: DashboardIcon };
+const users = { name: "Perfil", path: routes.USERS, icon: PeopleAlt };
 const medicalInformation = {
   name: "Mi salud",
-  path: "medical-information",
+  path: routes.MEDICAL_INFORMATION,
   icon: HealthIcon,
 };
 const medicalHistory = {
   name: "Mi historial",
-  path: "medical-history",
+  path: routes.MEDICAL_HISTORY,
   icon: MedicalInformation,
 };
 const doctors = {
   name: "Doctores",
-  path: "doctors",
+  path: routes.DOCTORS,
   icon: PersonSearch,
 };
-const settings = { name: "Ajustes", path: "settings", icon: Settings };
+const settings = { name: "Ajustes", path: routes.SETTINGS, icon: Settings };
 
 export const PATIENT_ROUTES_INFO = {
   blog,
@@ -41,12 +42,12 @@ export const DOCTOR_ROUTES_INFO = {
   users,
   patients: {
     name: "Pacientes",
-    path: "doctors-patients",
+    path: routes.PATIENTS,
     icon: PeopleAlt,
   },
   records: {
     name: "Expedientes",
-    path: "doctors-records",
+    path: routes.RECORDS,
     icon: InsertDriveFile,
   },
   medicalInformation,
