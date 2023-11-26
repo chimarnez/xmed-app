@@ -20,6 +20,9 @@ const DataTable = ({
   tableTitle,
   searchLabel,
   createLabel,
+  allowCreate = false,
+  allowEdit = false,
+  allowDelete = false,
 }) => {
   const [page, setPage] = useState(0);
   const [rowsPerPage, setRowsPerPage] = useState(10);
@@ -30,6 +33,11 @@ const DataTable = ({
 
   const handleChangePage = (event, newPage) => {
     setPage(newPage);
+  };
+
+  const handleEdit = () => {
+    const itemId = Object.keys(selected)[0];
+    navigate("edit", { state: { id: itemId } });
   };
 
   const handleChangeRowsPerPage = (event) => {
@@ -60,11 +68,14 @@ const DataTable = ({
       <TableLayout>
         <DataTableHead title={tableTitle}>
           <DataTableTools
-            hasDelete={selectedCount > 0}
-            hasEdit={selectedCount === 1}
-            hasCreate={true}
+            deleteDisabled={selectedCount === 0}
+            editDisabled={selectedCount !== 1}
+            allowCreate={allowCreate}
+            allowEdit={allowEdit}
+            allowDelete={allowDelete}
             searchLabel={searchLabel}
             createLabel={createLabel}
+            onEdit={handleEdit}
           />
         </DataTableHead>
         <TableContainer

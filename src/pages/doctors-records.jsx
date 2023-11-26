@@ -3,6 +3,7 @@ import { useLoaderData } from "react-router-dom";
 import DataTable from "../components/data-table";
 import { formatDate } from "../utils/date";
 import { toShortText } from "../utils/text";
+import { useUserRole } from "../hooks/user";
 
 // columns puede incluir un formateador configurable
 // tambien puede incluir style y sx para definir que campos de deben mostrar en responsive
@@ -30,12 +31,16 @@ function formatter(row, columns) {
 
 const DoctorRecordsPage = () => {
   const records = useLoaderData();
+  const role = useUserRole();
   return (
     <DataTable
       rowFormatter={formatter}
       columns={columns}
       data={records}
-      tableTitle="Mis expedientes"
+      allowCreate={role === "doctor"}
+      allowEdit={role === "doctor"}
+      allowDelete={role === "doctor"}
+      tableTitle="Expedientes"
     />
   );
 };

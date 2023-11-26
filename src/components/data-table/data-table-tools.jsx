@@ -9,9 +9,12 @@ import {
 // import { useNavigate } from "react-router-dom";
 
 const DataTableTools = ({
-  hasEdit,
-  hasCreate,
-  hasDelete,
+  editDisabled,
+  allowCreate,
+  allowEdit,
+  allowDelete,
+  deleteDisabled,
+  onEdit,
   searchLabel = "Buscar",
   createLabel = "Crear",
 }) => {
@@ -48,7 +51,7 @@ const DataTableTools = ({
       </Grid>
       <Grid item xs={12} md={6}>
         <Box sx={{ display: "flex", justifyContent: "flex-end" }}>
-          {hasCreate && (
+          {allowCreate && (
             <>
               <Button
                 sx={{
@@ -64,22 +67,27 @@ const DataTableTools = ({
               <Box sx={{ display: "inline", ml: 1 }} />
             </>
           )}
-          <>
+          {allowEdit && (
+            <>
+              <Button
+                disabled={editDisabled}
+                size="large"
+                onClick={onEdit}
+                //   onClick={() => setOpen(true)}
+              >
+                <Edit />
+              </Button>
+              <Box sx={{ display: "inline", ml: 1 }} />
+            </>
+          )}
+          {allowDelete && (
             <Button
-              disabled={!hasEdit}
-              size="large"
+              disabled={deleteDisabled}
               //   onClick={() => setOpen(true)}
             >
-              <Edit />
+              <Delete />
             </Button>
-            <Box sx={{ display: "inline", ml: 1 }} />
-          </>
-          <Button
-            disabled={!hasDelete}
-            //   onClick={() => setOpen(true)}
-          >
-            <Delete />
-          </Button>
+          )}
         </Box>
       </Grid>
     </Grid>

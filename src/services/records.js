@@ -1,6 +1,7 @@
 import { redirect } from "react-router-dom";
 import { getAuthConfig } from "./auth";
 import axiosInstance from "./axios";
+import { parseFromDateInput } from "../utils/date";
 
 export async function getRecords() {
   const { data } = await axiosInstance.get(
@@ -45,8 +46,12 @@ export async function loader() {
   }
 }
 
-export async function updateRecord(data) {
-  await axiosInstance.patch(`/records/patients`, data, getAuthConfig());
+export async function updateRecord(recordId, data) {
+  const updatedData = { ...data };
+  if (updatedData.issuedOn) {
+    updatedData.issuedOn = parseFromDateInput(data.issuedOn);
+  }
+  await axiosInstance.patch(`/records/${recordId}`, data, getAuthConfig());
 }
 
 export async function createRecord(recordData) {

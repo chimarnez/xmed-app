@@ -24,6 +24,7 @@ import DoctorsRecordsPage from "./pages/doctors-records";
 import DoctorsPatientsPage from "./pages/doctors-patients";
 import * as routes from "./constants/route-names";
 import CreatePatientPage from "./pages/create-patient";
+import EditRecord from "./components/edit-record";
 
 const router = createBrowserRouter([
   {
@@ -62,6 +63,14 @@ const router = createBrowserRouter([
         path: routes.RECORDS,
         loader: getDoctorRecords,
         element: <DoctorsRecordsPage />,
+      },
+      {
+        path: `${routes.RECORDS}/:id`,
+        element: <RecordDetails />,
+      },
+      {
+        path: `${routes.RECORDS}/edit`,
+        element: <EditRecord />,
       },
       {
         path: routes.PATIENTS,

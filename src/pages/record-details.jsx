@@ -1,4 +1,4 @@
-import { useParams } from "react-router-dom";
+import { useParams, useNavigate } from "react-router-dom";
 import {
   Typography,
   Box,
@@ -13,11 +13,15 @@ import {
 import { useEffect, useState } from "react";
 import { getRecord } from "../services/records";
 import { formatDate } from "../utils/date";
-import { Link as RouterLink } from "react-router-dom";
 
 const RecordDetails = () => {
   const { id } = useParams();
   const [record, setRecord] = useState(null);
+  const navigate = useNavigate();
+
+  const handleBack = () => {
+    navigate(-1);
+  };
 
   useEffect(() => {
     getRecord(id)
@@ -111,12 +115,7 @@ const RecordDetails = () => {
           </TableBody>
         </Table>
       </TableContainer>
-      <Button
-        component={RouterLink}
-        to="/app/medical-history"
-        variant="contained"
-        color="primary"
-      >
+      <Button variant="contained" color="primary" onClick={handleBack}>
         Regresar
       </Button>
     </Box>
