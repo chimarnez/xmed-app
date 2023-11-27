@@ -1,26 +1,24 @@
-export const userForm = {
-  email: { required: true },
-  password: { required: true, label: "contraseña", type: "password" },
-  firstName: { required: true, label: "nombre" },
-  lastName: { required: true, label: "apellido" },
-  birthDate: { required: true, label: "fecha de nacimiento", type: "date" },
-  gender: { required: true, label: "género", type: "select", options: [{}] },
-};
-
-export const fieldNames = {
-  email: "email",
-  password: "contraseña",
-  firstName: "nombre",
-  lastName: "apellido",
-  birthDate: "fecha de nacimiento",
-  gender: "género",
-};
-
-export const defaultValues = {
-  email: "",
-  password: "",
-  firstName: "",
-  lastName: "",
-  birthDate: "",
-  gender: "",
+export const form = {
+  email: { label: "Email", required: true },
+  password: { label: "Contraseña", required: true, type: "password" },
+  firstName: { label: "Nombre", required: true },
+  lastName: { label: "Apellido", required: true },
+  birthDate: {
+    label: "Fecha de nacimiento",
+    required: true,
+    type: "date",
+    default: "1980-01-01",
+  },
+  gender: {
+    label: "Género",
+    required: true,
+    type: "select",
+    options: [
+      { value: "M", label: "Masculino" },
+      { value: "F", label: "Femenino" },
+      { value: "O", label: "Otro" },
+    ],
+  },
+  address: { label: "Dirección", required: true },
+  phone: { label: "Teléfono", required: true },
 };
