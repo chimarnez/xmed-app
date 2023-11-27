@@ -2,7 +2,7 @@ import { useState } from "react";
 import { IconButton, MobileStepper, Container } from "@mui/material";
 import { KeyboardArrowLeft, KeyboardArrowRight } from "@mui/icons-material";
 
-const Signup = () => {
+const SignupForm = () => {
   const [activeStep, setActiveStep] = useState(0);
 
   const handleNext = () => {
@@ -20,7 +20,12 @@ const Signup = () => {
         steps={6}
         position="static"
         activeStep={activeStep}
-        sx={{ maxWidth: 400, flexGrow: 1, borderRadius: 1 }}
+        sx={{
+          maxWidth: 400,
+          flexGrow: 1,
+          borderRadius: 1,
+          backgroundColor: "transparent",
+        }}
         nextButton={
           <IconButton
             color="primary"
@@ -46,4 +51,4 @@ const Signup = () => {
   );
 };
 
-export default Signup;
+export default SignupForm;
