@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import {
   Box,
   IconButton,
@@ -15,6 +16,7 @@ import {
 import { KeyboardArrowLeft, KeyboardArrowRight } from "@mui/icons-material";
 import { formDetail as userForm } from "../../constants/user";
 import { createFieldInitialState, isInvalid } from "../../validation/common";
+import { createUser } from "../../services/user";
 // import { formDetail as doctorForm } from "../../constants/doctor";
 // import { formDetail as patientForm } from "../../constants/patient";
 
@@ -63,6 +65,10 @@ const SignupForm = () => {
   const [currentForm] = useState(userForm);
   const [customForm, setCustomForm] = useState(createForm(userForm, userSteps));
   const [activeStep, setActiveStep] = useState(0);
+  const [loading, setLoading] = useState(false);
+
+  const navigate = useNavigate();
+  // const [created, setCreated] = useState(false);
 
   const handleNext = () => {
     setActiveStep((prevActiveStep) => prevActiveStep + 1);
@@ -96,9 +102,26 @@ const SignupForm = () => {
     updatedForm[fieldName] = updatedField;
     setCustomForm(updatedForm);
   };
-  let disabled = isInvalid(
-    ...stepFields[activeStep].map((fieldName) => customForm[fieldName])
-  );
+
+  const handleCreate = async () => {
+    setLoading(true);
+    const userData = Object.fromEntries(
+      Object.entries(customForm).map(([key, field]) => [key, field.value])
+    );
+    try {
+      await createUser(userData);
+      navigate("/");
+    } catch (error) {
+      console.log(error);
+    }
+    setLoading(false);
+  };
+
+  let disabled =
+    loading ||
+    isInvalid(
+      ...stepFields[activeStep].map((fieldName) => customForm[fieldName])
+    );
   const textFields = stepFields[activeStep].map((fieldName) => {
     const error = customForm[fieldName].error;
     return currentForm[fieldName].type !== "select" ? (
@@ -190,7 +213,7 @@ const SignupForm = () => {
       </Container>
       {textFields}
       {activeStep === stepFields.length - 1 ? (
-        <Button disabled={disabled} variant="contained">
+        <Button onClick={handleCreate} disabled={disabled} variant="contained">
           Crear
         </Button>
       ) : (

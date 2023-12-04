@@ -3,6 +3,17 @@ import { getAuthConfig } from "./auth";
 import axiosInstance from "./axios";
 import { parseFromDateInput } from "../utils/date";
 
+export async function createUser(data) {
+  data.birthDate = parseFromDateInput(data.birthDate);
+  try {
+    await axiosInstance.post("/users", data);
+    return { created: true };
+  } catch (error) {
+    console.log(error);
+    throw new Error("No se pudo crear su cuenta");
+  }
+}
+
 export async function getUser() {
   const { data } = await axiosInstance.get("/users", getAuthConfig());
 
