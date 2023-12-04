@@ -1,14 +1,20 @@
 import { useState } from "react";
 import {
+  Box,
   IconButton,
   MobileStepper,
   Container,
   TextField,
   Button,
+  Select,
+  FormControl,
+  MenuItem,
+  InputLabel,
+  Typography,
 } from "@mui/material";
 import { KeyboardArrowLeft, KeyboardArrowRight } from "@mui/icons-material";
 import { formDetail as userForm } from "../../constants/user";
-import { createFieldInitialState } from "../../validation/common";
+import { createFieldInitialState, isInvalid } from "../../validation/common";
 // import { formDetail as doctorForm } from "../../constants/doctor";
 // import { formDetail as patientForm } from "../../constants/patient";
 
@@ -70,24 +76,79 @@ const SignupForm = () => {
     const updatedForm = { ...customForm };
     const updatedField = { ...updatedForm[fieldName] };
     updatedField.value = value;
+    const validation = currentForm[fieldName].validation;
+    if (updatedField.touched && validation) {
+      updatedField.error = validation(value);
+    }
     updatedForm[fieldName] = updatedField;
     setCustomForm(updatedForm);
   };
 
+  const handleBlur = (fieldName, value) => {
+    if (currentForm[fieldName].touched) return;
+    const updatedForm = { ...customForm };
+    const updatedField = { ...updatedForm[fieldName] };
+    updatedField.touched = true;
+    const validation = currentForm[fieldName].validation;
+    if (validation) {
+      updatedField.error = validation(value);
+    }
+    updatedForm[fieldName] = updatedField;
+    setCustomForm(updatedForm);
+  };
+  let disabled = isInvalid(
+    ...stepFields[activeStep].map((fieldName) => customForm[fieldName])
+  );
   const textFields = stepFields[activeStep].map((fieldName) => {
-    return (
-      <TextField
-        fullWidth
-        key={fieldName}
-        type={currentForm[fieldName].type}
-        label={currentForm[fieldName].label}
-        variant="outlined"
-        margin="dense"
-        value={customForm[fieldName].value}
-        onChange={(e) => {
-          handleChange(fieldName, e.currentTarget.value);
-        }}
-      />
+    const error = customForm[fieldName].error;
+    return currentForm[fieldName].type !== "select" ? (
+      <Box key={fieldName} sx={{ width: "100%" }}>
+        <TextField
+          error={!!error}
+          fullWidth
+          type={currentForm[fieldName].type}
+          label={currentForm[fieldName].label}
+          variant="outlined"
+          margin="dense"
+          value={customForm[fieldName].value}
+          onChange={(e) => {
+            handleChange(fieldName, e.currentTarget.value);
+          }}
+          onBlur={(e) => {
+            handleBlur(fieldName, e.currentTarget.value);
+          }}
+        />
+        {error && (
+          <Typography variant="caption" color="error">
+            * {error}
+          </Typography>
+        )}
+      </Box>
+    ) : (
+      <FormControl key={fieldName} fullWidth>
+        <InputLabel>{currentForm[fieldName].label}</InputLabel>
+        <Select
+          name={fieldName}
+          label={currentForm[fieldName].label}
+          value={customForm[fieldName].value}
+          onChange={(e) => handleChange(fieldName, e.target.value)}
+          onBlur={(e) => {
+            handleBlur(fieldName, e.target.value);
+          }}
+          // onChange={(e) => handleInputChange(e, "gender")}
+        >
+          {currentForm[fieldName].options.map((option) => (
+            <MenuItem key={option.value} value={option.value}>
+              {option.label}
+            </MenuItem>
+          ))}
+        </Select>
+        {error && (
+          <Typography variant="caption" color="error">
+            * {error}
+          </Typography>
+        )}
+      </FormControl>
     );
   });
 
@@ -110,7 +171,7 @@ const SignupForm = () => {
               color="primary"
               size="small"
               onClick={handleNext}
-              disabled={activeStep === stepFields.length - 1}
+              disabled={activeStep === stepFields.length - 1 || disabled}
             >
               <KeyboardArrowRight />
             </IconButton>
@@ -129,11 +190,11 @@ const SignupForm = () => {
       </Container>
       {textFields}
       {activeStep === stepFields.length - 1 ? (
-        <Button disabled variant="contained">
+        <Button disabled={disabled} variant="contained">
           Crear
         </Button>
       ) : (
-        <Button onClick={handleNext} variant="contained">
+        <Button disabled={disabled} onClick={handleNext} variant="contained">
           Siguiente
         </Button>
       )}

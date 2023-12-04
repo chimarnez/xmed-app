@@ -33,10 +33,15 @@ export function createCustomMaxLengthValidator(message, max) {
 
 /**
  *
- * @param  {((value: string) => number)[]} validate
+ * @param  {((value: string) => string)[]} validators
  */
-export function createBlockValidator(...validate) {
-  for (const f of validate) {
-    f;
-  }
+export function createValidator(...validators) {
+  return function (value) {
+    const trimmedValue = value.trim();
+    for (const validate of validators) {
+      let message = validate(trimmedValue);
+      if (message) return message;
+    }
+    return "";
+  };
 }

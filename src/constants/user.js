@@ -1,5 +1,11 @@
 import { createLabeledField, createLabeledSelectField } from "../utils/form";
-import { validateEmail, validatePassword } from "../validation/user";
+import {
+  validateEmail,
+  validateFilled,
+  validateName,
+  validatePassword,
+  validatePhone,
+} from "../validation/user";
 
 export const formDetail = {
   email: createLabeledField("Email", true, "", "text", validateEmail),
@@ -10,8 +16,8 @@ export const formDetail = {
     "password",
     validatePassword
   ),
-  firstName: createLabeledField("Nombre", true),
-  lastName: createLabeledField("Apellido", true),
+  firstName: createLabeledField("Nombre", true, "", "text", validateName),
+  lastName: createLabeledField("Apellido", true, "", "text", validateName),
   birthDate: createLabeledField(
     "Fecha de nacimiento",
     true,
@@ -23,6 +29,6 @@ export const formDetail = {
     { value: "F", label: "Femenino" },
     { value: "O", label: "Otro" },
   ]),
-  address: createLabeledField("Dirección", true),
-  phone: createLabeledField("Teléfono", true),
+  address: createLabeledField("Dirección", true, "", "text", validateFilled),
+  phone: createLabeledField("Teléfono", true, "", "text", validatePhone),
 };
