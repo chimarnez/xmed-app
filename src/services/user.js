@@ -31,7 +31,7 @@ export async function updateUser(data) {
   if (updatedUser.birthDate) {
     updatedUser.birthDate = parseFromDateInput(updatedUser.birthDate);
   }
-  if (!updatedUser.password) updatedUser.password = "Userpassword12";
+  if (!updatedUser.password) delete updatedUser.password;
   await axiosInstance.patch(`/users`, updatedUser, getAuthConfig());
 }
 
