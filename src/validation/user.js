@@ -1,6 +1,7 @@
 import { createValidator } from "./common";
 import {
   EMPTY_FIELD,
+  INVALID_BIRTH_DATE,
   MAX_50_LENGTH,
   MIN_3_LENGTH,
   email,
@@ -54,6 +55,19 @@ export const validatePhone = createValidator(
 export const validateFilled = createValidator(
   validateNotEmpty.bind(this, EMPTY_FIELD)
 );
+
+export const validateBirthDate = createValidator(
+  validateBirthDateNotInFuture.bind(this, INVALID_BIRTH_DATE)
+);
+
+function validateBirthDateNotInFuture(errorMessage, dateString) {
+  const birthDate = new Date(dateString);
+  const today = new Date();
+  if (birthDate > today) {
+    return errorMessage;
+  }
+  return '';
+}
 // export function validateEmail(value) {
 //   let errorMessage = "Tu email debe ser válido";
 //   const cleanValue = value.trim();
