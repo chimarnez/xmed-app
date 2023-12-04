@@ -40,6 +40,18 @@ const PatientsPage = () => {
         <EditPatient patient={patient} />
       ) : (
         <>
+          <Typography component="h2" sx={{
+            color:"#26C08B",
+            fontSize: {
+                xs: "2rem",
+                sm: "2rem",  
+                md: "2.5rem",
+                lg: "3rem", 
+                xl: "4rem"  
+            }
+          }} variant="h2">
+              Paciente
+          </Typography>
           <List>
             {Object.entries(patient).map(([key, value]) => {
               if (fieldNames[key]) {

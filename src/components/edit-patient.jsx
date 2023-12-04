@@ -63,7 +63,16 @@ const EditPatient = ({ patient, edit = true }) => {
   return (
     <div>
       <header className="App-header">
-        <Typography component="h2" variant="h2">
+        <Typography component="h2" sx={{
+          color:"#26C08B",
+          fontSize: {
+              xs: "2rem",
+              sm: "2rem",  
+              md: "2.5rem",
+              lg: "3rem", 
+              xl: "4rem"  
+          }
+        }} variant="h2">
           {edit ? "Editar" : "Registrar"} datos del paciente
         </Typography>
         <Box my={2}>
