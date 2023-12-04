@@ -6,3 +6,37 @@ export function isInvalid(...fieldStates) {
     return (field.required && !field.value?.trim()) || field.error;
   });
 }
+
+export function createCustomEmptyValidator(message) {
+  return function (value) {
+    const trimmedValue = value.trim();
+    if (!trimmedValue.length) return message;
+    return "";
+  };
+}
+
+export function createCustomMinLengthValidator(message, min) {
+  return function (value) {
+    const trimmedValue = value.trim();
+    if (trimmedValue.length < min) return message;
+    return "";
+  };
+}
+
+export function createCustomMaxLengthValidator(message, max) {
+  return function (value) {
+    const trimmedValue = value.trim();
+    if (trimmedValue.length > max) return message;
+    return "";
+  };
+}
+
+/**
+ *
+ * @param  {((value: string) => number)[]} validate
+ */
+export function createBlockValidator(...validate) {
+  for (const f of validate) {
+    f;
+  }
+}

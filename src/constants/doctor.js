@@ -1,9 +1,6 @@
-export const fieldNames = {
-  specialization: "especialización",
-  medicalLicence: "licencia médica",
-};
+import { createLabeledField } from "../utils/form";
 
-export const defaultValues = {
-  specialization: "",
-  medicalLicence: "",
+export const formDetail = {
+  specialization: createLabeledField("Especialización", true),
+  medicalLicence: createLabeledField("Licencia médica", true),
 };

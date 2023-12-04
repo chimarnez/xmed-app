@@ -1,7 +1,7 @@
 import { Link } from "react-router-dom";
 import "../styles/nav.css";
 import { AppBar, Container, Stack, Toolbar, Typography } from "@mui/material";
-import logo from "../assets/logo.png";
+import LogoIcon from "./icons/logo-icon";
 
 const HomeNav = () => {
   return (
@@ -15,7 +15,8 @@ const HomeNav = () => {
               alignItems="center"
               style={{ color: "white" }}
             >
-              <img src={logo} alt="xmed logo" className="logo" width={42} />
+              <LogoIcon />
+              {/* <img src={logo1} alt="xmed logo" className="logo" width={42} /> */}
               <Typography variant="h5" fontWeight="bold">
                 <span style={{ color: "#27C08B", marginRight: 4 }}>X</span>MED
               </Typography>

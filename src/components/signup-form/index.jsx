@@ -7,62 +7,55 @@ import {
   Button,
 } from "@mui/material";
 import { KeyboardArrowLeft, KeyboardArrowRight } from "@mui/icons-material";
-import { form as userForm } from "../../constants/user";
+import { formDetail as userForm } from "../../constants/user";
+import { createFieldInitialState } from "../../validation/common";
+// import { formDetail as doctorForm } from "../../constants/doctor";
+// import { formDetail as patientForm } from "../../constants/patient";
 
-// function signupReducer(state, action) {
-//   switch (action.type) {
-//     case "update": {
-//       const updatedState = [...state];
-//       const updatedStep = { ...updatedState[action.stepIndex] };
-//       const updatedField = { ...updatedStep[action.field] };
-//       updatedField.value = action.value;
-//       updatedStep[action.field] = updatedField;
-//       updatedState[action.stepIndex];
-//       console.log(updatedStep);
-//       return updatedState;
-//     }
-//     default: {
-//       throw Error("Unknown action: " + action.type);
-//     }
-//   }
-// }
-
-// let item = {from: "user", fields: []}
-function createSteps(form, items) {
+function createForm(form, items) {
   const stateForm = {};
-  const steps = items.map((item) => {
-    const step = {};
-    if (!stateForm[item.from]) {
-      stateForm[item.from] = {};
-    }
-    for (const field of item.fields) {
-      const value = form[item.from][field].default ?? "";
-      stateForm[item.from][field] = { value };
-      step[field] = {
-        ...form[item.from][field],
-        from: item.from,
-        touched: false,
-        errors: [],
+  items.forEach((item) => {
+    for (const fieldName of item) {
+      const fieldDetail = form[fieldName];
+      const value = fieldDetail.default ?? "";
+      stateForm[fieldName] = createFieldInitialState(
         value,
-      };
+        fieldDetail.required
+      );
     }
-    return step;
   });
-  console.log(stateForm);
-  return { steps, stateForm };
+  return stateForm;
 }
 
-const initialState = createSteps({ user: userForm }, [
-  { from: "user", fields: ["email", "password"] },
-  { from: "user", fields: ["firstName", "lastName"] },
-  { from: "user", fields: ["birthDate", "gender"] },
-  { from: "user", fields: ["address", "phone"] },
-]);
+const userSteps = [
+  ["email", "password"],
+  ["firstName", "lastName"],
+  ["birthDate", "gender"],
+  ["address", "phone"],
+];
+
+// const patientSteps = [
+//   ["healthInsurance", "bloodType"],
+//   ["weight", "height"],
+//   ["allergies", "chronicDiseases"],
+//   ["currentMedication", "familyHistory"],
+// ];
+
+// const doctorSteps = [
+//   ["specialization", "medicalLicence"],
+// ];
+
+// const formPages = [
+//   {name: "user", detail: userForm, steps: userSteps, initial: createForm(userForm, userSteps)},
+//   {name: "patient", detail: patientForm, steps: patientSteps, initial: createForm(patientForm, patientSteps)},
+//   {name: "doctor", detail: doctorForm, steps: doctorSteps, initial: createForm(doctorForm, doctorSteps)},
+// ]
 
 const SignupForm = () => {
   // const [stepFields, dispatch] = useReducer(signupReducer, initialState.steps);
-  const [stepFields] = useState(initialState.steps);
-  const [customForm, setCustomForm] = useState(initialState.stateForm);
+  const [stepFields] = useState(userSteps);
+  const [currentForm] = useState(userForm);
+  const [customForm, setCustomForm] = useState(createForm(userForm, userSteps));
   const [activeStep, setActiveStep] = useState(0);
 
   const handleNext = () => {
@@ -73,40 +66,30 @@ const SignupForm = () => {
     setActiveStep((prevActiveStep) => prevActiveStep - 1);
   };
 
-  const handleChange = (fieldName, field, value) => {
-    const updatedState = { ...customForm };
-    const updatedForm = { ...updatedState[field.from] };
+  const handleChange = (fieldName, value) => {
+    const updatedForm = { ...customForm };
     const updatedField = { ...updatedForm[fieldName] };
     updatedField.value = value;
     updatedForm[fieldName] = updatedField;
-    updatedState[field.from] = updatedForm;
-    setCustomForm(updatedState);
-    // dispatch({
-    //   type: "update",
-    //   value,
-    //   stepIndex: activeStep,
-    //   field: fieldName,
-    // });
+    setCustomForm(updatedForm);
   };
 
-  const textFields = Object.entries(stepFields[activeStep]).map(
-    ([key, field]) => {
-      return (
-        <TextField
-          fullWidth
-          key={key}
-          type={field.type}
-          label={field.label}
-          variant="outlined"
-          margin="dense"
-          value={customForm[field.from][key].value}
-          onChange={(e) => {
-            handleChange(key, field, e.currentTarget.value);
-          }}
-        />
-      );
-    }
-  );
+  const textFields = stepFields[activeStep].map((fieldName) => {
+    return (
+      <TextField
+        fullWidth
+        key={fieldName}
+        type={currentForm[fieldName].type}
+        label={currentForm[fieldName].label}
+        variant="outlined"
+        margin="dense"
+        value={customForm[fieldName].value}
+        onChange={(e) => {
+          handleChange(fieldName, e.currentTarget.value);
+        }}
+      />
+    );
+  });
 
   return (
     <>
