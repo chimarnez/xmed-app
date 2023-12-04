@@ -15,6 +15,14 @@ import {
 } from "@mui/material";
 import { LoadingButton } from "@mui/lab";
 import { formatInputDate } from "../utils/date";
+import {
+  validateEmail,
+  validatePassword,
+  validateName,
+  validatePhone,
+  validateFilled,
+  validateBirthDate,
+} from '../validation/user'
 
 const genderOptions = [
   { value: "M", label: "Masculino" },
@@ -36,6 +44,10 @@ const EditUser = () => {
     password: "",
   });
 
+  const [initialUserDetails, setInitialUserDetails] = useState({});
+
+  const [validationErrors, setValidationErrors] = useState({});
+
   const formatUser = (user) => {
     const updatedUser = { ...userDetails };
     Object.keys(updatedUser).forEach((key) => {
@@ -45,6 +57,25 @@ const EditUser = () => {
       updatedUser.birthDate = formatInputDate(user.birthDate);
     }
     setUserDetails(updatedUser);
+    setInitialUserDetails(updatedUser);
+  };
+
+  const getModifiedFields = () => {
+    let modifiedFields = {};
+    for (let key in userDetails) {
+      if (userDetails[key] !== initialUserDetails[key]) {
+        modifiedFields[key] = userDetails[key];
+      }
+    }
+    return modifiedFields;
+  };
+
+  const hasUserDetailsChanged = () => {
+    return Object.keys(userDetails).some(key => userDetails[key] !== initialUserDetails[key]);
+  };
+
+  const hasValidationErrors = () => {
+    return Object.values(validationErrors).some(error => error !== '');
   };
 
   useEffect(() => {
@@ -59,25 +90,61 @@ const EditUser = () => {
     fetchUser();
   }, []);
 
-  const handleInputChange = (event, field) => {
-    setUserDetails({
-      ...userDetails,
-      [field]: event.target.value,
-    });
+  const handleInputChange = (event) => {
+    const { name, value } = event.target;
+    let validationError = '';
+    switch (name) {
+      case 'email':
+        validationError = validateEmail(value);
+        break;
+      case 'password':
+        if (value !== '') { // Solo validar la contraseña si el usuario ha ingresado algo
+          validationError = validatePassword(value);
+        }
+        break;
+      case 'firstName':
+      case 'lastName':
+        validationError = validateName(value);
+        break;
+      case 'phone':
+        validationError = validatePhone(value);
+        break;
+      case 'address':
+        validationError = validateFilled(value);
+        break;
+      case 'birthDate':
+        validationError = validateBirthDate(value);
+        break;
+      default:
+        break;
+
+    }
+    setUserDetails(prevDetails => ({
+      ...prevDetails,
+      [name]: value,
+    }));
+    setValidationErrors(prevErrors => ({
+      ...prevErrors,
+      [name]: validationError,
+    }));
+    // Aquí puedes establecer el error de validación en el estado para mostrarlo en la interfaz de usuario
   };
 
   const handleSubmit = async (event) => {
     event.preventDefault();
-    setLoading(true); // Establecer loading a true cuando se envía el formulario
+    setLoading(true);
     try {
-      await updateUser(userDetails);
+      const modifiedFields = getModifiedFields();
+      console.log(modifiedFields);
+      await updateUser(modifiedFields);
       navigate("/app/redirect", { state: { toPath: "/app/users" } });
     } catch (error) {
       console.error(error);
     } finally {
-      setLoading(false); // Establecer loading a false cuando se complete la solicitud
+      setLoading(false);
     }
   };
+
   return (
     <div className="App">
       <header className="App-header">
@@ -95,11 +162,11 @@ const EditUser = () => {
                       type="text"
                       name="firstName"
                       value={userDetails.firstName}
-                      onChange={(e) => handleInputChange(e, "firstName")}
+                      onChange={handleInputChange}
                       margin="dense"
                       fullWidth
                       variant="outlined"
-                      helperText="Campo obligatorio"
+                      helperText={validationErrors.firstName}
                     />
                   </Grid>
                   <Grid item xs={12} sm={12} md={6} lg={6} xl={6}>
@@ -108,11 +175,11 @@ const EditUser = () => {
                       type="text"
                       name="lastName"
                       value={userDetails.lastName}
-                      onChange={(e) => handleInputChange(e, "lastName")}
+                      onChange={handleInputChange}
                       margin="dense"
                       fullWidth
                       variant="outlined"
-                      helperText="Campo obligatorio"
+                      helperText={validationErrors.lastName}
                     />
                   </Grid>
                   <Grid item xs={12} sm={12} md={6} lg={6} xl={6}>
@@ -125,6 +192,7 @@ const EditUser = () => {
                       margin="dense"
                       fullWidth
                       variant="outlined"
+                      helperText={validationErrors.birthDate}
                     />
                   </Grid>
                   <Grid item xs={12} sm={12} md={6} lg={6} xl={6}>
@@ -155,6 +223,7 @@ const EditUser = () => {
                       margin="dense"
                       fullWidth
                       variant="outlined"
+                      helperText={validationErrors.phone}
                     />
                   </Grid>
                   <Grid item xs={12} sm={12} md={6} lg={6} xl={6}>
@@ -167,6 +236,7 @@ const EditUser = () => {
                       margin="dense"
                       fullWidth
                       variant="outlined"
+                      helperText={validationErrors.address}
                     />
                   </Grid>
                   <Grid item xs={12} sm={12} md={6} lg={6} xl={6}>
@@ -175,10 +245,11 @@ const EditUser = () => {
                       type="text"
                       name="email"
                       value={userDetails.email}
-                      onChange={(e) => handleInputChange(e, "email")}
+                      onChange={handleInputChange}
                       margin="dense"
                       fullWidth
                       variant="outlined"
+                      helperText={validationErrors.email} // Mostrar el mensaje de error de validación
                     />
                   </Grid>
                   <Grid item xs={12} sm={12} md={6} lg={6} xl={6}>
@@ -187,20 +258,21 @@ const EditUser = () => {
                       type="password"
                       name="password"
                       value={userDetails.password}
-                      onChange={(e) => handleInputChange(e, "password")}
+                      onChange={handleInputChange}
                       margin="dense"
                       fullWidth
                       variant="outlined"
+                      helperText={validationErrors.password}
                     />
                   </Grid>
                   <Grid item xs={12} sm={12} md={12} lg={12} xl={12}>
                     <Box sx={{ "& > button": { m: 1 } }}>
                       <LoadingButton
                         size="small"
-                        onClick={handleSubmit} // Llama a la función handleSubmit sin pasar argumentos
+                        onClick={handleSubmit}
                         loading={loading}
                         variant="outlined"
-                        disabled={!loading ? false : true}
+                        disabled={!hasUserDetailsChanged() || hasValidationErrors() || loading}
                       >
                         Enviar
                       </LoadingButton>
