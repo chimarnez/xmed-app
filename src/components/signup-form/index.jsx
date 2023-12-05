@@ -17,6 +17,7 @@ import { KeyboardArrowLeft, KeyboardArrowRight } from "@mui/icons-material";
 import { formDetail as userForm } from "../../constants/user";
 import { createFieldInitialState, isInvalid } from "../../validation/common";
 import { createUser } from "../../services/user";
+import { useNotification } from "../../hooks/notification";
 // import { formDetail as doctorForm } from "../../constants/doctor";
 // import { formDetail as patientForm } from "../../constants/patient";
 
@@ -66,6 +67,7 @@ const SignupForm = () => {
   const [customForm, setCustomForm] = useState(createForm(userForm, userSteps));
   const [activeStep, setActiveStep] = useState(0);
   const [loading, setLoading] = useState(false);
+  const notify = useNotification();
 
   const navigate = useNavigate();
   // const [created, setCreated] = useState(false);
@@ -110,9 +112,11 @@ const SignupForm = () => {
     );
     try {
       await createUser(userData);
+      notify("Su cuenta se ha creado exitosamente", "success");
       navigate("/");
     } catch (error) {
       console.log(error);
+      notify("Hubo un error al crear su cuenta", "error");
     }
     setLoading(false);
   };

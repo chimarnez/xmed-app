@@ -37,6 +37,11 @@ const theme = createTheme({
     primary: {
       main: palette.primary,
     },
+    success: {
+      main: palette.primary,
+      dark: palette.primary,
+      // contrastText: palette.appWhite,
+    },
   },
 });
 

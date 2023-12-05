@@ -5,6 +5,7 @@ import router from "./router";
 import theme from "./theme";
 import background from "./assets/background.jpg";
 import palette from "./theme/palette";
+import NotificationProvider from "./context/notification";
 
 function Xmed() {
   return (
@@ -25,7 +26,9 @@ function Xmed() {
             height: "100vh",
           }}
         >
-          <RouterProvider router={router} />
+          <NotificationProvider>
+            <RouterProvider router={router} />
+          </NotificationProvider>
         </Box>
       </Box>
     </ThemeProvider>
