@@ -6,7 +6,7 @@ export const NotificationContext = createContext();
 export default function NotificationProvider({ children }) {
   const [message, setMessage] = useState("");
   const [severity, setSeverity] = useState("info");
-  const [open, setOpen] = useState(true);
+  const [open, setOpen] = useState(false);
   const onClose = useCallback(() => {
     setOpen(false);
   }, []);
