@@ -5,19 +5,20 @@ import GitHubIcon from "@mui/icons-material/GitHub";
 import FacebookIcon from "@mui/icons-material/Facebook";
 import TwitterIcon from "@mui/icons-material/Twitter";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
+import { Typography } from "@mui/material";
 import Header from "./Header";
 import MainFeaturedPost from "./MainFeaturedPost";
 import FeaturedPost from "./FeaturedPost";
 import Sidebar from "./Sidebar";
 
 const sections = [
-  { title: "Health", url: "#" },
-  { title: "Wellness", url: "#" },
-  { title: "Mental Health", url: "#" },
-  { title: "Nutrition", url: "#" },
-  { title: "Fitness", url: "#" },
-  { title: "Lifestyle", url: "#" },
-  { title: "Prevention", url: "#" },
+  { title: "Salud", url: "#" },
+  { title: "Bienestar", url: "#" },
+  { title: "Salud Mental", url: "#" },
+  { title: "Nutrición", url: "#" },
+  { title: "Estado Físico", url: "#" },
+  { title: "Estilo de vida", url: "#" },
+  { title: "Prevención", url: "#" },
 ];
 
 const mainFeaturedPost = {
@@ -80,7 +81,20 @@ export default function Blog() {
     <ThemeProvider theme={defaultTheme}>
       <CssBaseline />
       <Container maxWidth="lg">
-        <Header title="Blog" sections={sections} />
+        <Header title={
+        <Typography component="h2" sx={{
+          color:"#26C08B", 
+          fontSize: {
+              xs: "2.5rem",
+              sm: "2.5rem",  
+              md: "2.5rem",
+              lg: "3rem", 
+              xl: "4rem"  
+          }
+        }} variant="h2">
+            Blog
+        </Typography>}
+        sections={sections} />
         <main>
           <MainFeaturedPost post={mainFeaturedPost} />
           <Grid container spacing={4}>

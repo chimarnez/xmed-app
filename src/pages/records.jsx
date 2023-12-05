@@ -1,4 +1,4 @@
-import { TableCell } from "@mui/material";
+import { TableCell, Typography } from "@mui/material";
 import { useLoaderData } from "react-router-dom";
 import DataTable from "../components/data-table";
 import { formatDate } from "../utils/date";
@@ -35,7 +35,20 @@ const RecordsPage = () => {
       rowFormatter={formatter}
       columns={columns}
       data={records}
-      tableTitle="Mis expedientes"
+      tableTitle={
+        <Typography component="h2" sx={{
+          color:"#26C08B",
+          fontSize: { 
+              xs: "2rem",
+              sm: "2rem",  
+              md: "2.5rem",
+              lg: "3rem", 
+              xl: "4rem"  
+          }
+        }} variant="h2">
+            Mis expedientes
+        </Typography>
+      }
     />
   );
 };

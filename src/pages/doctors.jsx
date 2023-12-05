@@ -1,5 +1,5 @@
 import { useLoaderData } from "react-router-dom";
-import { TableCell } from "@mui/material";
+import { TableCell, Typography } from "@mui/material";
 import DataTable from "../components/data-table";
 // import ListObject from "../components/list-object";
 // import EditDoctor from "../components/edit-doctor";
@@ -51,7 +51,20 @@ const DoctorsPage = () => {
   const data = useLoaderData();
   return (
     <DataTable
-      tableTitle="Doctores"
+      tableTitle={
+        <Typography component="h2" sx={{
+          color:"#26C08B",
+          fontSize: { 
+              xs: "2rem",
+              sm: "2rem",  
+              md: "2.5rem",
+              lg: "3rem", 
+              xl: "4rem"  
+          }
+        }} variant="h2">
+            Doctores
+        </Typography>
+      }
       rowFormatter={formatter}
       columns={columns}
       data={data}
