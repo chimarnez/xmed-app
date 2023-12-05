@@ -82,7 +82,7 @@ const EditUser = () => {
     <div className="App">
       <header className="App-header">
         <Typography component="h2" sx={{
-          color:"#26C08B",
+          color:"#26C08B", 
           fontSize: {
               xs: "2rem",
               sm: "2rem",  

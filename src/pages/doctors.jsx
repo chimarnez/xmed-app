@@ -54,7 +54,7 @@ const DoctorsPage = () => {
       tableTitle={
         <Typography component="h2" sx={{
           color:"#26C08B",
-          fontSize: {
+          fontSize: { 
               xs: "2rem",
               sm: "2rem",  
               md: "2.5rem",

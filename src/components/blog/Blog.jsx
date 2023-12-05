@@ -83,7 +83,7 @@ export default function Blog() {
       <Container maxWidth="lg">
         <Header title={
         <Typography component="h2" sx={{
-          color:"#26C08B",
+          color:"#26C08B", 
           fontSize: {
               xs: "2.5rem",
               sm: "2.5rem",  
