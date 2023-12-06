@@ -6,7 +6,7 @@ import { useState } from "react";
 import UserProvider from "../services/user-provider";
 
 const App = () => {
-  const [open, setOpen] = useState(true);
+  const [open, setOpen] = useState(false);
   const toggleDrawer = () => {
     setOpen(!open);
   };
