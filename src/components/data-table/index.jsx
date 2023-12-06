@@ -45,7 +45,11 @@ const DataTable = ({
     setPage(0);
   };
   function handleSelect(itemId) {
-    const updatedSelection = { ...selected };
+    if (!allowEdit && !allowDelete) {
+      navigate(String(itemId));
+      return;
+    }
+    let updatedSelection = { ...selected };
     let count = selectedCount;
     if (updatedSelection[itemId]) {
       delete updatedSelection[itemId];
@@ -53,6 +57,10 @@ const DataTable = ({
     } else {
       updatedSelection[itemId] = true;
       count++;
+      if (!allowDelete) {
+        updatedSelection = { [itemId]: true };
+        count = 1;
+      }
     }
     setSelected(updatedSelection);
     setSelectedCount(count);
@@ -84,7 +92,10 @@ const DataTable = ({
           }}
         >
           <Table stickyHeader aria-label="sticky table">
-            <TableContentHead columns={columns} />
+            <TableContentHead
+              allowCheck={allowDelete || allowEdit}
+              columns={columns}
+            />
             <TableBody>
               {rows
                 .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
@@ -92,6 +103,7 @@ const DataTable = ({
                   return (
                     <DataTableRow
                       isSelected={selected[row.id] ?? false}
+                      allowCheck={allowDelete || allowEdit}
                       onDetail={handleDetail.bind(this, row.id)}
                       onClick={handleSelect.bind(this, row.id)}
                       key={"row" + i}

@@ -1,7 +1,7 @@
 import { TableCell, TableHead, TableRow, Checkbox } from "@mui/material";
 import palette from "../../theme/palette";
 
-const TableContentHead = ({ columns }) => {
+const TableContentHead = ({ columns, allowCkeck }) => {
   const cells = columns.map((column) => (
     <TableCell
       key={column.id}
@@ -21,6 +21,9 @@ const TableContentHead = ({ columns }) => {
         <TableCell
           style={{
             backgroundColor: palette.appBgDark,
+          }}
+          sx={{
+            display: { sm: allowCkeck ? "table-cell" : "none", xs: "none" },
           }}
           padding="checkbox"
         >

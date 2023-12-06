@@ -39,7 +39,11 @@ const AppNav = ({ open, toggleDrawer }) => {
     navigate("/");
   };
   return (
-    <StyledAppBar color="transparent" position="absolute" open={open}>
+    <StyledAppBar
+      // sx={{ backgroundColor: "red" }}
+      position="absolute"
+      open={open}
+    >
       <Toolbar
         sx={{
           pr: "24px",

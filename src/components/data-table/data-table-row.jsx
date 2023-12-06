@@ -1,7 +1,14 @@
 import { TableCell, TableRow, IconButton, Checkbox } from "@mui/material";
 import { VisibilityOutlined } from "@mui/icons-material";
 
-const DataTableRow = ({ children, isSelected, onClick, onDetail, label }) => {
+const DataTableRow = ({
+  children,
+  isSelected,
+  onClick,
+  onDetail,
+  label,
+  allowCheck,
+}) => {
   return (
     <TableRow
       hover
@@ -10,7 +17,10 @@ const DataTableRow = ({ children, isSelected, onClick, onDetail, label }) => {
       onClick={onClick}
       tabIndex={-1}
     >
-      <TableCell padding="checkbox">
+      <TableCell
+        sx={{ display: { sm: allowCheck ? "table-cell" : "none", xs: "none" } }}
+        padding="checkbox"
+      >
         <Checkbox
           color="primary"
           checked={isSelected}

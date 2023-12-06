@@ -28,8 +28,24 @@ import DataTable from "../components/data-table";
 // };
 
 const columns = [
-  { id: "firstName", label: "Nombre", from: "User" },
-  { id: "lastName", label: "Apellido", from: "User" },
+  {
+    id: "firstName",
+    label: "Nombre",
+    from: "User",
+    sx: { display: { xs: "none", sm: "table-cell" } },
+  },
+  {
+    id: "lastName",
+    label: "Apellido",
+    from: "User",
+    sx: { display: { xs: "none", sm: "table-cell" } },
+  },
+  {
+    id: "composedName",
+    label: "Doctor",
+    sx: { display: { sm: "none" } },
+    compose: (row) => `${row.User.firstName} ${row.User.lastName}`,
+  },
   {
     id: "specialization",
     label: "Especialidad",
@@ -38,7 +54,11 @@ const columns = [
 
 function formatter(row, columns) {
   return columns.map((column) => {
-    const value = column.from ? row[column.from][column.id] : row[column.id];
+    const value = column.compose
+      ? column.compose(row)
+      : column.from
+      ? row[column.from][column.id]
+      : row[column.id];
     return (
       <TableCell key={column.id} align={column.align} sx={column.sx}>
         {column.format ? column.format(value) : value}
@@ -52,17 +72,21 @@ const DoctorsPage = () => {
   return (
     <DataTable
       tableTitle={
-        <Typography component="h2" sx={{
-          color:"#26C08B",
-          fontSize: { 
+        <Typography
+          component="h2"
+          sx={{
+            color: "#26C08B",
+            fontSize: {
               xs: "2rem",
-              sm: "2rem",  
+              sm: "2rem",
               md: "2.5rem",
-              lg: "3rem", 
-              xl: "4rem"  
-          }
-        }} variant="h2">
-            Doctores
+              lg: "3rem",
+              xl: "4rem",
+            },
+          }}
+          variant="h2"
+        >
+          Doctores
         </Typography>
       }
       rowFormatter={formatter}
