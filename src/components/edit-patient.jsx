@@ -12,9 +12,11 @@ import {
 import { LoadingButton } from "@mui/lab";
 import { useNavigate } from "react-router-dom";
 import { MEDICAL_INFORMATION } from "../constants/route-names";
+import { useNotification } from "../hooks/notification";
 
 const EditPatient = ({ patient, edit = true }) => {
   const navigate = useNavigate();
+  const notify = useNotification();
 
   const handleInputChange = (event, setState) => {
     setState(event.target.value);
@@ -49,12 +51,17 @@ const EditPatient = ({ patient, edit = true }) => {
       } else {
         await createPatient(updatedPatient);
       }
+      notify(
+        `Su información se ha ${edit ? "actualizado" : "creado"} correctamente`,
+        "success"
+      );
       navigate("/app/redirect", {
         state: { toPath: `/app/${MEDICAL_INFORMATION}` },
       });
       // window.location.reload();
     } catch (error) {
       console.error(error);
+      notify("Hubo un problema al validar su información", "error");
     } finally {
       setLoading(false);
     }
@@ -63,16 +70,20 @@ const EditPatient = ({ patient, edit = true }) => {
   return (
     <div>
       <header className="App-header">
-        <Typography component="h2" sx={{
-          color:"#26C08B",
-          fontSize: {
+        <Typography
+          component="h2"
+          sx={{
+            color: "#26C08B",
+            fontSize: {
               xs: "2rem",
-              sm: "2rem",  
+              sm: "2rem",
               md: "2.5rem",
-              lg: "3rem", 
-              xl: "4rem"  
-          }
-        }} variant="h2">
+              lg: "3rem",
+              xl: "4rem",
+            },
+          }}
+          variant="h2"
+        >
           {edit ? "Editar" : "Registrar"} datos del paciente
         </Typography>
         <Box my={2}>

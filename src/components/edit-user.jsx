@@ -22,7 +22,8 @@ import {
   validatePhone,
   validateFilled,
   validateBirthDate,
-} from '../validation/user'
+} from "../validation/user";
+import { useNotification } from "../hooks/notification";
 
 const genderOptions = [
   { value: "M", label: "Masculino" },
@@ -33,6 +34,7 @@ const genderOptions = [
 const EditUser = () => {
   const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
+  const notify = useNotification();
   const [userDetails, setUserDetails] = useState({
     firstName: "",
     lastName: "",
@@ -71,11 +73,13 @@ const EditUser = () => {
   };
 
   const hasUserDetailsChanged = () => {
-    return Object.keys(userDetails).some(key => userDetails[key] !== initialUserDetails[key]);
+    return Object.keys(userDetails).some(
+      (key) => userDetails[key] !== initialUserDetails[key]
+    );
   };
 
   const hasValidationErrors = () => {
-    return Object.values(validationErrors).some(error => error !== '');
+    return Object.values(validationErrors).some((error) => error !== "");
   };
 
   useEffect(() => {
@@ -92,38 +96,38 @@ const EditUser = () => {
 
   const handleInputChange = (event) => {
     const { name, value } = event.target;
-    let validationError = '';
+    let validationError = "";
     switch (name) {
-      case 'email':
+      case "email":
         validationError = validateEmail(value);
         break;
-      case 'password':
-        if (value !== '') { // Solo validar la contraseña si el usuario ha ingresado algo
+      case "password":
+        if (value !== "") {
+          // Solo validar la contraseña si el usuario ha ingresado algo
           validationError = validatePassword(value);
         }
         break;
-      case 'firstName':
-      case 'lastName':
+      case "firstName":
+      case "lastName":
         validationError = validateName(value);
         break;
-      case 'phone':
+      case "phone":
         validationError = validatePhone(value);
         break;
-      case 'address':
+      case "address":
         validationError = validateFilled(value);
         break;
-      case 'birthDate':
+      case "birthDate":
         validationError = validateBirthDate(value);
         break;
       default:
         break;
-
     }
-    setUserDetails(prevDetails => ({
+    setUserDetails((prevDetails) => ({
       ...prevDetails,
       [name]: value,
     }));
-    setValidationErrors(prevErrors => ({
+    setValidationErrors((prevErrors) => ({
       ...prevErrors,
       [name]: validationError,
     }));
@@ -137,9 +141,11 @@ const EditUser = () => {
       const modifiedFields = getModifiedFields();
       console.log(modifiedFields);
       await updateUser(modifiedFields);
+      notify("Su información se ha actualizado", "success");
       navigate("/app/redirect", { state: { toPath: "/app/users" } });
     } catch (error) {
       console.error(error);
+      notify("Hubo un problema al actualizar su información", "error");
     } finally {
       setLoading(false);
     }
@@ -148,16 +154,20 @@ const EditUser = () => {
   return (
     <div className="App">
       <header className="App-header">
-        <Typography component="h2" sx={{
-          color:"#26C08B", 
-          fontSize: {
+        <Typography
+          component="h2"
+          sx={{
+            color: "#26C08B",
+            fontSize: {
               xs: "2rem",
-              sm: "2rem",  
+              sm: "2rem",
               md: "2.5rem",
-              lg: "3rem", 
-              xl: "4rem"  
-          }
-        }} variant="h2">
+              lg: "3rem",
+              xl: "4rem",
+            },
+          }}
+          variant="h2"
+        >
           Edición de Usuario
         </Typography>
         <Box my={2}>
@@ -281,7 +291,11 @@ const EditUser = () => {
                         onClick={handleSubmit}
                         loading={loading}
                         variant="outlined"
-                        disabled={!hasUserDetailsChanged() || hasValidationErrors() || loading}
+                        disabled={
+                          !hasUserDetailsChanged() ||
+                          hasValidationErrors() ||
+                          loading
+                        }
                       >
                         Enviar
                       </LoadingButton>
